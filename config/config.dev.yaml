@@ -1,0 +1,121 @@
+default:
+    cmddict:
+        filename:  cmd.yaml
+
+    tlmdict:
+        filename:  tlm.yaml
+
+    alarms:
+        filename:  alarms.yaml
+
+    dsn:
+        encryption:
+            vcid_filter: None
+            client:
+                name: ait.dsn.encrypt.kmc_encrypter.KmcSdlsEncrypter
+                config:
+                    kmc_properties:
+                    - cryptolib.sadb.type=mariadb
+                    - cryptolib.crypto.type=service
+                    - cryptolib.process_tc.ignore_antireplay=true
+                    - cryptolib.process_tc.ignore_sa_state=true
+                    - cryptolib.process_tc.process_pdus=false
+                    - cryptolib.sadb.mariadb.fqdn=localhost
+                    - cryptolib.sadb.mariadb.username=''
+                    - cryptolib.sadb.mariadb.password=''
+                    #- cryptolib.sadb.mariadb.tls.cacert=/home/jpluser/kmc/ammos-ca-bundle.crt
+                    #- cryptolib.sadb.mariadb.tls.verifyserver=true
+                    #- cryptolib.sadb.mariadb.mtls.clientcert=/home/jpluser/kmc/local-test-cert.pem
+                    #- cryptolib.sadb.mariadb.mtls.clientkey=/home/jpluser/kmc/local-test-key.pem
+                    #- cryptolib.sadb.mariadb.require_secure_transport=true
+                    - cryptolib.crypto.kmccryptoservice.protocol=https
+                    - cryptolib.crypto.kmccryptoservice.fqdn=kmc.somehost.jpl.nasa.gov
+                    - cryptolib.crypto.kmccryptoservice.app=crypto-service
+                    - cryptolib.crypto.kmccryptoservice.mtls.clientcert=/home/jpluser/kmc/client-cert.pem
+                    - cryptolib.crypto.kmccryptoservice.mtls.clientcertformat=PEM
+                    - cryptolib.crypto.kmccryptoservice.mtls.clientkey=/home/jpluser/kmc/client-key.pem
+                    - cryptolib.crypto.kmccryptoservice.cacert=/home/jpluser/kmc/ammos-server-cert.pem
+                    - cryptolib.crypto.kmccryptoservice.verifyserver=true
+                    
+                    - cryptolib.tc.vcid_bitmask=0x3F
+                    - cryptolib.apply_tc.create_ecf=true
+                    - cryptolib.process_tc.check_fecf=false
+
+                    - cryptolib.tc.123.0.has_segmentation_header=false
+                    - cryptolib.tc.123.0.has_pus_header=false
+                    - cryptolib.tc.123.0.has_ecf=true
+                    - cryptolib.tc.123.0.max_frame_length=1024
+                    - cryptolib.tc.123.1.has_segmentation_header=false
+                    - cryptolib.tc.123.1.has_pus_header=false
+                    - cryptolib.tc.123.1.has_ecf=true
+                    - cryptolib.tc.123.1.max_frame_length=1024
+                    - cryptolib.tc.123.2.has_segmentation_header=false
+                    - cryptolib.tc.123.2.has_pus_header=false
+                    - cryptolib.tc.123.2.has_ecf=true
+                    - cryptolib.tc.123.2.max_frame_length=1024
+                    - cryptolib.tc.123.3.has_segmentation_header=false
+                    - cryptolib.tc.123.3.has_pus_header=false
+                    - cryptolib.tc.123.3.has_ecf=true
+                    - cryptolib.tc.123.3.max_frame_length=1024
+                    #kmc_property_file: None
+        sle:
+            initiator_id: ''
+            initiator_pw : ''
+            responder_id: ''
+            responder_pw: ''
+            downlink_frame_type: AOSTransFrame
+            heartbeat: 120
+            deadfactor: 5
+            buffer_size: 256000
+            responder_port: 'default'
+            frame_output_port: 2568 # Don't use this...
+            tctf:
+                transfer_frame_version_number: 0
+                bypass_flag: 1
+                control_command_flag: 0
+                reserved: 0
+                uplink_spacecraft_id: 99
+                virtual_channel_id: 1
+                frame_sequence_number: 0
+                apply_error_correction_field: False
+                max_user_data_field_size_clear_octets: 1017 # Save 2  OCT for ECF
+                max_user_data_field_size_auth_octets: 995 #  Make room for headers
+                # TODO 987 seems to be the correct value, ICD might have an error
+                max_user_data_field_size_enc_octets: 987 # Make room for headers
+                max_tctf_size_final_octets: 1024 # Final size of Clear and SDLS TCTF 
+                max_tctf_size_auth_octets:  1002 # Size limit for TCTFs passed to KMC
+                max_tctf_size_enc_octets:  994  # Size limit for TCTFs passed to KMC
+                expected_sdls_type: CLEAR # <CLEAR | AUTH | ENC >
+            rcf:
+                inst_id: sagr=PARARERU.spack=PARARERU.rsl-fg=1.rcf=onlc2
+                hostnames:
+                    - ''
+                port: 5306
+                version: 4
+                spacecraft_id: 99
+                trans_frame_ver_num: 0
+                auth_level: 'bind'
+            raf:
+                inst_id: sagr=CHOME.spack=CHOME-CHOME=1.raf=CHOME
+                hostnames:
+                    - ''
+                port: 5306
+                version: 4
+                auth_level: 'bind'
+            fcltu:
+                inst_id: sagr=PARARERU.spack=PARARERU.rsl-fg=1.rcf=onlc2
+                hostnames:
+                    - ''
+                port: 5112
+                version: 4
+                auth_level: 'bind'
+            aos:
+                frame_header_error_control_included: false
+                transfer_frame_insert_zone_len: 0
+                operational_control_field_included: false
+                frame_error_control_field_included: false
+                virtual_channels:
+                    0: "m_pdu"
+                    2: "m_pdu"
+                    4: "m_pdu"
+                    63: "idle"

@@ -1,0 +1,346 @@
+bifrost:
+  services:
+    - service:
+        name: bifrost.services.core.configuration_service.Configuration
+        disabled: False
+        watchdog_timer_s: 1
+        topics:
+          request_config_value:
+            - 'Reconfiguration_Service.Request'
+          utc_timestamp_now:
+            - 'Bifrost.Configuration.UTC_Now'
+          request_downlink_path:
+            - 'Bifrost.Configuration.Downlink_Path'
+        stream_declarations:
+          Telemetry:
+            - 'Telemetry.AOS.Raw.Beef'
+            - 'Telemetry.AOS.Raw'
+
+            - 'Telemetry.AOS.VCID.0.TaggedFrame'
+            - 'Telemetry.AOS.VCID.Unknown.TaggedFrame'
+
+            - 'Telemetry.AOS.VCID.0.TaggedPacket'
+
+        key_values:
+          global:
+            mission:
+              pass_id: 6
+            paths:
+              data_path: '/home/jpluser/products/'
+            aws:
+              profile: saml-gov
+              bucket: ait-test
+              region: us-gov-west-1
+
+          instance:
+            space_vehicle:
+              sv_name: mitd
+              sv_identifier: 'M-001'
+              ccsds_dl_scid: 99
+
+    - service:
+        name: bifrost.services.testing.examples.echo.Echo
+        disabled: True
+        topics:
+          echo_alice:
+            - Hello.Alice
+          echo_bob:
+            - Hello.Bob
+          echo_mr_x:
+            - Hello.Mr_x
+
+    - service: 
+        name: bifrost.services.testing.examples.echo.Hello
+        disabled: True
+        mr_x: Fujiko Mine
+        #mr_x: Lupin The Third
+        sleep: 10
+  
+    - service:
+        name: bifrost.services.dsn_services.raf_downlink_service.SLE_RAF_Service
+        disabled: True
+        report_time_s: 5
+        autorestart: False
+        output_stream: 'Telemetry.AOS.Raw'
+        topics:
+          directive_stop_sle:
+            - 'Bifrost.Directive.SLE.RAF.Stop'
+          directive_restart_sle:
+            - 'Bifrost.Directive.SLE.RAF.Restart'
+        
+    - service:
+        name: bifrost.services.dsn_services.cltu_uplink_service.SLE_CLTU_Uplink_Service
+        disabled: True
+        report_time_s: 5
+        autorestart: False
+        topics:
+          directive_stop_sle:
+            - 'Bifrost.Directive.SLE.CLTU.Stop'
+          directive_restart_sle:
+            - 'Bifrost.Directive.SLE.CLTU.Restart'
+          uplink:
+            - 'Uplink.CmdMetaData.CLTU'
+        streams:
+          Null
+
+    - service:
+        name: bifrost.services.core.web.Web_Server
+        disabled: False
+        telemetry_stream_pattern: 'Telemetry.AOS.VCID.0.TaggedPacket.>'
+        index: '/sunrise/SunRISE-Bifrost/sunrise/test/'
+        downlink_update_pattern: 'Bifrost.Messages.Info.File_Processor.Downlink_Update'
+        
+    - service:
+        name: bifrost.services.core.influx.Influx
+        disabled: False
+        host_url: http://localhost:8086
+        api_token: "EtL0WErH5eTrCa-yOyCRtotvkKONsM5JxjcSfMan6K0gegESd-TvgiEfwAhD2c5bTxsBX-xXwhmcusGsXAup_w=="
+        org: mgss
+        streams: Null
+        topics:
+          write_telemetry:
+            - 'Telemetry.AOS.VCID.0.TaggedPacket.>'
+          write_command_metadata:
+            - Uplink.CmdMetaData.Log
+
+    - service:
+        name: bifrost.services.uplink.packet_padder.Packet_Padder
+        disabled: True
+        topics:
+          process:
+            - Uplink.CmdMetaData.Space_Packet
+
+    - service:
+        name: bifrost.services.core.space_packet_service.Space_Packet_Service
+        disabled: True
+        topics:
+          packetize_cmd_metadata:
+            - Uplink.CmdMetaData
+          packetize_raw:
+            - Bifrost.Services.Space_Packet.Packetize            
+          depacketize:
+            - Bifrost.Services.Space_Packet.Depacketize
+
+    - service:
+        name: bifrost.services.core.monitoring.Monitor
+        disabled: False
+        topics:
+          process:
+            - 'Bifrost.Monitors.>'
+        report_time_s: 5
+
+    - service:
+        name: bifrost.services.uplink.tctf_service.TCTF_Service
+        disabled: False
+        topics:
+          process:
+            #- Uplink.CmdMetaData.Padded
+            #- Uplink.CmdMetaData.Space_Packet
+            - Uplink.CmdMetaData.FSS_Command
+            - Uplink.CmdMetaData
+    - service:
+        name: bifrost.services.sdls_services.sdls_encrypter_service.SDLS_Encrypter_Service
+        disabled: True
+        report_time_s: 10
+        topics:
+          process:
+            - Uplink.CmdMetaData.TCTF
+
+    - service:
+        name: bifrost.services.uplink.ccsds_randomizer_service.CCSDS_Randomizer_Service
+        disabled: True
+        topics:
+          randomize_sdls:
+            - Uplink.CmdMetaData.SDLS
+          # randomize_tctf:
+          # - Uplink.CmdMetaData.TCTF
+
+    - service:
+        name: bifrost.services.uplink.CLTU_service.CLTU_Service
+        disabled: False
+        CLTU_start: '0x55555555555555555555EB90'
+        CLTU_tail: '0xc5c5c5c5c5c5c579'
+        topics:
+          process:
+            #- Uplink.CmdMetaData.SDLS.Random
+            #- Uplink.CmdMetaData.TCTF.Random
+            #- Uplink.CmdMetaData.TCTF
+            - Uplink.CmdMetaData.TCTF.BCH
+
+
+    - service:
+        name: bifrost.services.uplink.BCH_service.BCH_Service
+        disabled: False
+        topics:
+          encode_cmd_metadata:
+            - Uplink.CmdMetaData.TCTF
+            #- Uplink.CmdMetaData.SDLS.Random
+            #- Uplink.CmdMetaData.TCTF.Random
+          #encode:
+          #  - ''
+
+    - service:
+        name: bifrost.services.extra.synchronization_service.Synchronization_Service
+        disabled: True
+        topics:
+          process:
+            - create_CLTU
+
+    - service:
+        name: bifrost.services.networking.tcp_service.TCP_Manager
+        disabled: False
+        report_time_s: 5
+        topics:
+          process:            
+            - Uplink.CmdMetaData.CLTU
+          directive_config:
+            - Bifrost.Directive.TCP_Manager.Config
+          directive_disconnect:
+            - Bifrost.Directive.TCP_Manager.Disconnect
+          directive_connect:
+            - Bifrost.Directive.TCP_Manager.Connect
+          directive_reconnect:
+            - Bifrost.Directive.TCP_Manager.Reconnect
+            
+        subscriptions:
+          FSW_SIM_Uplink:
+            topic: Uplink.CmdMetaData.CLTU
+            hostname: cfs
+            port: 25002
+            mode: TRANSMIT
+            timeout_seconds: 1
+
+          FSW_SIM_Downlink:
+            topic: Telemetry.AOS.Raw.Beef
+            hostname: cfs
+            port: 25003
+            mode: RECEIVE
+            timeout_seconds: 1
+
+    - service:
+        name: bifrost.services.downlink.frame_processors.real_time_processor.RealTime_Telemetry_Frame_Processor
+        disabled: False
+        topics: Null
+        streams:
+          process:
+            - Telemetry.AOS.VCID.0.TaggedFrame
+
+    - service:
+        name: bifrost.services.extra.synchronization_service.Desynchronization_Service
+        disabled: True
+        topics: Null
+        streams:
+          desynchronize:
+            - Telemetry.AOS.Raw.Beef
+
+    - service:
+        name: bifrost.services.extra.synchronization_service.ASM_Desynchronization_Service
+        disabled: False
+        topics: Null
+        streams:
+          desynchronize:
+            - Telemetry.AOS.Raw.Beef # Change to ASM
+
+    - service:
+        name: bifrost.services.testing.data_loss_services.Loss_Service
+        disabled: True
+        active: False
+        percent: 5.25
+        announce: False
+        topics: Null
+        streams:
+          process:
+            - Telemetry.AOS.Raw.Beef
+
+    - service:
+        name: bifrost.services.testing.data_loss_services.Corruption_Service
+        disabled: True
+        active: False
+        percent: 25.25
+        announce: False
+        topics: Null
+        stream:
+          process:
+            - Telemetry.AOS.Raw.Beef
+           
+    - service:
+        name: bifrost.services.downlink.frame_checks_service.AOS_Frame_Checks_Service
+        disabled: False
+        topics: Null
+        fec_check: False
+        streams:
+          process:
+            - Telemetry.AOS.Raw
+
+    - service:
+        name: bifrost.services.core.commanding.command_loader_service.Command_Loader_Service
+        disabled: False
+        default_cl_path: ''
+        default_uplink_path: ''
+        topics:
+          show:
+            - CL.Show
+          execute:
+            - CL.Execute
+          validate:
+            - CL.Validate
+          uplink_complete:
+            - Uplink.CmdMetaData.Complete           
+
+    - service:
+        name: bifrost.services.core.dictionary_services.Command_Dictionary_Service
+        disabled: False
+        topics:
+          generate_command: 
+            - 'Bifrost.Services.Dictionary.Command.Generate'
+            - 'Bifrost.Services.Dictionary.Command.Validate'
+          get_dictionary_json:
+            - 'Bifrost.Services.Dictionary.Command.Json'
+
+    - service:
+        name: bifrost.services.downlink.frame_processors.frame_archive_processor.Frame_Archive_Processor
+        disabled: False
+        frame_ext: .AOSTF
+        vcid_interests:
+          0: True
+          2: False
+          4: False
+          63: False
+        topics: Null
+        streams:
+          process:
+            - 'Telemetry.AOS.VCID.*.TaggedFrame'
+
+    - service:
+        name: bifrost.services.testing.injector_service.Data_Injection_Service
+        disabled: False
+        topics:
+          inject_binary_stream:
+            - 'Bifrost.Directive.Data_Injection_Service.Inject_Binary_Stream'
+
+    - service:
+        name: bifrost.services.testing.archive_services.Raw_Frame_Archive_Service
+        disabled: True
+        frame_extension: '.AOS_TF'
+        vcid_interests:
+          0: True
+          2: True
+          4: True
+          63: False
+        streams:
+          archive:
+            - 'Telemetry.AOS.Raw'
+
+    - service:
+        name: bifrost.services.extra.nasa_fss_service.NASA_FSS_Service
+        disabled: False
+        topics:
+          directive_command:
+            - Bifrost.Directive.NASA_FSS_Service.Command
+
+    - service:
+        name: bifrost.services.downlink.evr_services.EVR_Service
+        disabled: False
+        topics:
+          process_evr:
+            - "Telemetry.AOS.VCID.0.TaggedPacket.CFE_EVS_EVENT_MSG_PACKET"

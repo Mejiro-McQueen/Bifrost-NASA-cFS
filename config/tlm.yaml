@@ -1,0 +1,2721 @@
+#CFE_ES
+- !Packet
+  name: CFE_ES_HKPACKET
+  desc: Executive Services Housekeeping Packet
+  opcode: 0
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: The ES Application Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: The ES Application Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CFECORECHECKSUM
+    desc: Checksum of cFE Core Code.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: CFEMAJORVERSION
+    desc: Major Version Number of cFE.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CFEMINORVERSION
+    desc: Minor Version Number of cFE.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CFEREVISION
+    desc: Sub-Minor Version Number of cFE.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CFEMISSIONREVISION
+    desc: Mission Version Number of cFE.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: OSALMAJORVERSION
+    desc: OS Abstraction Layer Major Version Number.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: OSALMINORVERSION
+    desc: OS Abstraction Layer Minor Version Number.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: OSALREVISION
+    desc: OS Abstraction Layer Revision Number.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: OSALMISSIONREVISION
+    desc: OS Abstraction Layer MissionRevision Number.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SYSLOGBYTESUSED
+    desc: Total number of bytes used in system log.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SYSLOGSIZE
+    desc: Total size of the system log.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SYSLOGENTRIES
+    desc: Number of entries in the system log.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SYSLOGMODE
+    desc: Write/Overwrite Mode.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ERLOGINDEX
+    desc: Current index of the ER Log (wraps around).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ERLOGENTRIES
+    desc: Number of entries made in the ER Log since the power on.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: REGISTEREDCOREAPPS
+    desc: Number of Applications registered with ES.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: REGISTEREDEXTERNALAPPS
+    desc: Number of Applications registered with ES.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: REGISTEREDTASKS
+    desc: Number of Tasks ( main AND child tasks ) registered with ES.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: REGISTEREDLIBS
+    desc: Number of Libraries registered with ES.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: RESETTYPE
+    desc: Reset type ( PROCESSOR or POWERON ).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: RESETSUBTYPE
+    desc: Reset Sub Type.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PROCESSORRESETS
+    desc: Number of processor resets since last power on.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: MAXPROCESSORRESETS
+    desc: Max processor resets before a power on is done.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: BOOTSOURCE
+    desc: Boot source ( as provided from BSP ).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFSTATE
+    desc: Current state of Performance Analyzer.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFMODE
+    desc: Current mode of Performance Analyzer.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFTRIGGERCOUNT
+    desc: Number of Times Perfomance Analyzer has Triggered.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFFILTERMASK
+    desc: Current Setting of Performance Analyzer Filter Masks.
+    type: MSB_U32[4]
+    units: null
+    mask: null
+  - !Field
+    name: PERFTRIGGERMASK
+    desc: Current Setting of Performance Analyzer Trigger Masks.
+    type: MSB_U32[4]
+    units: null
+    mask: null
+  - !Field
+    name: PERFDATASTART
+    desc: Identifies First Stored Entry in Performance Analyzer Log.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFDATAEND
+    desc: Identifies Last Stored Entry in Performance Analyzer Log.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFDATACOUNT
+    desc: Number of Entries Put Into the Performance Analyzer Log.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PERFDATATOWRITE
+    desc: Number of Performance Analyzer Log Entries Left to be Written to Log Dump
+      File.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: HEAPBYTESFREE
+    desc: Number of free bytes remaining in the OS heap.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: HEAPBLOCKSFREE
+    desc: Number of free blocks remaining in the OS heap.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: HEAPMAXBLOCKSIZE
+    desc: Number of bytes in the largest free block.
+    type: MSB_U32
+    units: null
+    mask: null
+
+# CFE_EVS
+- !Packet
+  name: CFE_EVS_EVENT_MSG_PACKET
+  desc: Event Message Telemetry Packet
+  opcode: 8
+  fields:
+  - !Field
+    name: PACKETID_APPNAME
+    desc: null
+    type: S20
+    units: null
+    mask: null
+  - !Field
+    name: PACKETID_EVENTID
+    desc: null
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: PACKETID_EVENTTYPE
+    desc: null
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: PACKETID_SPACECRAFTID
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PACKETID_PROCESSORID
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: MESSAGE
+    desc: Event message string.
+    type: S122
+    units: null
+    mask: null
+  - !Field
+    name: SPARE1
+    desc: Structure padding.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE2
+    desc: Structure padding.
+    type: U8
+    units: null
+    mask: null
+
+- !Packet
+  name: CFE_EVS_HKPACKET
+  desc: Event Services Housekeeping Telemetry Packet
+  opcode: 1
+  fields:
+  - !Field
+    name: COMMANDCOUNTER
+    desc: EVS Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COMMANDERRCOUNTER
+    desc: EVS Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MESSAGEFORMATMODE
+    desc: Event message format mode (short/long).
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MESSAGETRUNCCOUNTER
+    desc: Event message truncation counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: UNREGISTEREDAPPCOUNTER
+    desc: Unregistered application message send counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: OUTPUTPORT
+    desc: Output port mask.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: LOGFULLFLAG
+    desc: Local event log full flag.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: LOGMODE
+    desc: Local event logging mode (overwrite/discard).
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MESSAGESENDCOUNTER
+    desc: Event message send counter.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LOGOVERFLOWCOUNTER
+    desc: Local event log overflow counter.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LOGENABLED
+    desc: Current event log enable/disable state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE1
+    desc: Padding for 32 bit boundary.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE2
+    desc: Padding for 32 bit boundary.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE3
+    desc: Padding for 32 bit boundary.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: APPDATA
+    desc: Array of registered application table data.
+    type: MSB_U64[16]
+    units: null
+    mask: null
+
+#CFE_SB
+- !Packet
+  name: CFE_SB_HKPACKET
+  desc: Software Bus task housekeeping Packet
+  opcode: 3
+  fields:
+  - !Field
+    name: COMMANDCNT
+    desc: Count of valid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDERRCNT
+    desc: Count of invalid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: NOSUBSCRIBERSCNT
+    desc: Count pkts sent with no subscribers.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MSGSENDERRCNT
+    desc: Count of message send errors.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MSGRECEIVEERRCNT
+    desc: Count of message receive errors.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: INTERNALERRCNT
+    desc: Count of queue read or write errors.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CREATEPIPEERRCNT
+    desc: Count of errors in create pipe API.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SUBSCRIBEERRCNT
+    desc: Count of errors in subscribe API.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE
+    desc: Spare Byte.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: DUPSUBSCRIPTIONSCNT
+    desc: Count of duplicate subscriptions.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE2ALIGN
+    desc: Spare bytes to ensure alignment.
+    type: U8[2]
+    units: null
+    mask: null
+  - !Field
+    name: PIPEOVERFLOWERRCNT
+    desc: Count of pipe overflow errors.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MSGLIMERRCNT
+    desc: Count of msg id to pipe errors.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MEMPOOLHANDLE
+    desc: Handle to SB's Memory Pool.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: MEMINUSE
+    desc: Memory in use.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UNMARKEDMEM
+    desc: cfg param CFE_SB_BUF_MEMORY_BYTES minus Peak Memory in use
+    type: MSB_U32
+    units: null
+    mask: null
+
+# CFE_TBL
+- !Packet
+  name: CFE_TBL_HKPACKET
+  desc: Table Services Housekeeping Packet
+  opcode: 4
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: Count of valid commands received.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: Count of invalid commands received.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: NUMTABLES
+    desc: Number of Tables Registered.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: NUMLOADPENDING
+    desc: Number of Tables pending on Applications for their update.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: VALIDATIONCTR
+    desc: Number of completed table validations.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LASTVALCRC
+    desc: Data Integrity Value computed for last table validated.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTVALSTATUS
+    desc: Returned status from validation function for last table validated.
+    type: MSB_I32
+    units: null
+    mask: null
+  - !Field
+    name: ACTIVEBUFFER
+    desc: Indicator of whether table buffer validated was 0=Inactive, 1=Active.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: LASTVALTABLENAME
+    desc: Name of last table validated.
+    type: S38
+    units: null
+    mask: null
+  - !Field
+    name: SUCCESSVALCTR
+    desc: Total number of successful table validations.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: FAILEDVALCTR
+    desc: Total number of unsuccessful table validations.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: NUMVALREQUESTS
+    desc: Number of times Table Services has requested validations from Apps.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: NUMFREESHAREDBUFS
+    desc: Number of free Shared Working Buffers.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: BYTEALIGNPAD1
+    desc: Spare byte to ensure longword alignment.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MEMPOOLHANDLE
+    desc: Handle to TBL's memory pool.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTUPDATETIME_SECONDS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTUPDATETIME_SUBSECONDS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTUPDATEDTBL
+    desc: Name of the last table updated.
+    type: S38
+    units: null
+    mask: null
+  - !Field
+    name: LASTFILELOADED
+    desc: Path and Name of last table image file loaded.
+    type: S8
+    units: null
+    mask: null
+  - !Field
+    name: LASTFILEDUMPED
+    desc: Path and Name of last file dumped to.
+    type: S8
+    units: null
+    mask: null
+  - !Field
+    name: LASTTABLELOADED
+    desc: Name of the last table loaded.
+    type: S8
+    units: null
+    mask: null
+
+# CFE_TIME
+- !Packet
+  name: CFE_TIME_HKPACKET
+  desc: Time Services Housekeeping Packet
+  opcode: 5
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: Time Command Execution Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: Time Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CLOCKSTATEFLAGS
+    desc: State Flags.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: CLOCKSTATEAPI
+    desc: API State.
+    type: MSB_I16
+    units: null
+    mask: null
+  - !Field
+    name: LEAPSECONDS
+    desc: Current Leaps Seconds.
+    type: MSB_I16
+    units: null
+    mask: null
+  - !Field
+    name: SECONDSMET
+    desc: Current MET (seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SUBSECSMET
+    desc: Current MET (sub-seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SECONDSSTCF
+    desc: Current STCF (seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SUBSECSSTCF
+    desc: Current STCF (sub-seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SECONDS1HZADJ
+    desc: Current 1 Hz SCTF adjustment (seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SUBSECS1HZADJ
+    desc: Current 1 Hz SCTF adjustment (sub-seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+
+
+
+#CF_TLM
+- !Packet
+  name: CF_HKPACKET
+  desc: CF Application housekeeping Packet
+  opcode: 176
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: Count of valid commands received.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: Count of invalid commands received.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APP_WAKEUPFORFILEPROC
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_ENGINECYCLECOUNT
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_MEMINUSE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_PEAKMEMINUSE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_LOWMEMORYMARK
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_MAXMEMNEEDED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_MEMALLOCATED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_BUFFERPOOLHANDLE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_QNODESALLOCATED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_QNODESDEALLOCATED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_PDUSRECEIVED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_PDUSREJECTED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_TOTALINPROGTRANS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_TOTALFAILEDTRANS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_TOTALABANDONTRANS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_TOTALSUCCESSTRANS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_TOTALCOMPLETEDTRANS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_LASTFAILEDTRANS
+    desc: null
+    type: S160
+    units: null
+    mask: null
+  - !Field
+    name: AUTOSUSPEND_ENFLAG
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: AUTOSUSPEND_LOWFREEMARK
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: COND_POSACKNUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_FILESTOREREJNUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_FILECHECKSUMNUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_FILESIZENUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_NAKLIMITNUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_INACTIVENUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_SUSPENDNUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COND_CANCELNUM
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FLIGHTENGINEENTITYID
+    desc: null
+    type: S128
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FLAGS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_MACHINESALLOCATED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_MACHINESDEALLOCATED
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_SPARE
+    desc: null
+    type: U8[3]
+    units: null
+    mask: null
+  - !Field
+    name: UP_METACOUNT
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UP_UPLINKACTIVEQFILECNT
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UP_SUCCESSCOUNTER
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UP_FAILEDCOUNTER
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UP_LASTFILEUPLINKED
+    desc: null
+    type: S512
+    units: null
+    mask: null
+  # - !Field
+  #   name: CHAN
+  #   desc: null
+  #   type: MSB_U416[2]
+  #   units: null
+  #   mask: null
+- !Packet
+  name: CF_TRANSPACKET
+  desc: CF Application Single Transaction Status Packet
+  opcode: 177
+  fields:
+  - !Field
+    name: ENG_TRANSLEN
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_TRANSVAL
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_NAKS
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_PARTLEN
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_PARTVAL
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_PHASE
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_SPARE1
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_SPARE2
+    desc: null
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FLAGS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_TRANSNUM
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_ATTEMPTS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_CONDCODE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_DELICODE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FDOFFSET
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FDLENGTH
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_CHECKSUM
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FINALSTAT
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_FILESIZE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_RCVDFILESIZE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_ROLE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_STATE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_STARTTIME
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ENG_SRCFILE
+    desc: null
+    type: S512
+    units: null
+    mask: null
+  - !Field
+    name: ENG_DSTFILE
+    desc: null
+    type: S512
+    units: null
+    mask: null
+  - !Field
+    name: ENG_TMPFILE
+    desc: null
+    type: S512
+    units: null
+    mask: null
+  - !Field
+    name: APP_STATUS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_CONDCODE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_PRIORITY
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_CLASS
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_CHANNUM
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_SOURCE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_NODETYPE
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_TRANSNUM
+    desc: null
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APP_SRCENTITYID
+    desc: null
+    type: S128
+    units: null
+    mask: null
+  - !Field
+    name: APP_SRCFILE
+    desc: null
+    type: S512
+    units: null
+    mask: null
+  - !Field
+    name: APP_DSTFILE
+    desc: null
+    type: S512
+    units: null
+    mask: null
+
+
+# # CI 
+- !Packet
+  name: CI_ACKPKT
+  desc: CI HKPACKET
+  opcode: 4608
+  fields: []
+
+# CS
+- !Packet
+  name: CS_HKPACKET
+  desc: Housekeeping Packet Structure
+  opcode: 164
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: CS Application Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDERRCOUNTER
+    desc: CS Application Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHECKSUMSTATE
+    desc: CS Application global checksum state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: EEPROMCSSTATE
+    desc: CS Eeprom table checksum stat e.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MEMORYCSSTATE
+    desc: CS Memory table checksum state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: APPCSSTATE
+    desc: CS App table checksum state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: TABLESCSSTATE
+    desc: CS Tables table checksum stat e.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: OSCSSTATE
+    desc: OS code segment checksum state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CFECORECSSTATE
+    desc: cFE Core code segment checksum stat e
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDTASKINUSE
+    desc: CS 'Child Task In Use' flag.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ONESHOTTASKINUSE
+    desc: CS 'OneShot Task In Use' flag.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: FILLER8
+    desc: 8 bit padding
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: EEPROMCSERRCOUNTER
+    desc: Eeprom miscompare counte r.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MEMORYCSERRCOUNTER
+    desc: Memory miscompare counter.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APPCSERRCOUNTER
+    desc: App miscompare counter.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TABLESCSERRCOUNTER
+    desc: Tables miscompare counter.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: CFECORECSERRCOUNTER
+    desc: cFE core miscompare counter
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: OSCSERRCOUNTER
+    desc: OS code segment miscopmare counter.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTCSTABLE
+    desc: Current table being checksummed.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTENTRYINTABLE
+    desc: Current entry ID in the table being checksummed.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: EEPROMBASELINE
+    desc: Baseline checksum for all of Eeprom.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: OSBASELINE
+    desc: Baseline checksum for the OS code segment.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: CFECOREBASELINE
+    desc: Basline checksum for the cFE core.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTONESHOTADDRESS
+    desc: Address used in last one shot checksum command.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTONESHOTSIZE
+    desc: Size used in the last one shot checksum command.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTONESHOTCHECKSUM
+    desc: Checksum of the last one shot checksum command.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PASSCOUNTER
+    desc: Number of times CS has passed through all of its tables.
+    type: MSB_U32
+    units: null
+    mask: null
+
+#DS
+# - !Packet
+#   name: DS_FILEINFOPKT
+#   desc: DS application file info packet
+#   opcode: 185
+#   fields:
+#   - !Field
+#     name: FILEINFO
+#     desc: Current state of destination files.
+#     type: MSB_U168[2]
+#     units: null
+#     mask: null
+
+- !Packet
+  name: DS_HKPACKET
+  desc: DS application housekeeping packet
+  opcode: 184
+  fields:
+  - !Field
+    name: CMDACCEPTEDCOUNTER
+    desc: Count of valid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDREJECTEDCOUNTER
+    desc: Count of invalid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: DESTTBLLOADCOUNTER
+    desc: Count of destination file table loads.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: DESTTBLERRCOUNTER
+    desc: Count of failed attempts to get table data pointer.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: FILTERTBLLOADCOUNTER
+    desc: Count of packet filter table loads.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: FILTERTBLERRCOUNTER
+    desc: Count of failed attempts to get table data pointer.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: APPENABLESTATE
+    desc: Application enable/disable state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE8
+    desc: Structure alignment padding.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: FILEWRITECOUNTER
+    desc: Count of good destination file writes.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: FILEWRITEERRCOUNTER
+    desc: Count of bad destination file writes.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: FILEUPDATECOUNTER
+    desc: Count of good updates to secondary header.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: FILEUPDATEERRCOUNTER
+    desc: Count of bad updates to secondary header.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: DISABLEDPKTCOUNTER
+    desc: Count of packets discarded (DS was disabled).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: IGNOREDPKTCOUNTER
+    desc: Count of packets discarded. Incoming packets will be discarded when:.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: FILTEREDPKTCOUNTER
+    desc: Count of packets discarded (failed filter test).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PASSEDPKTCOUNTER
+    desc: Count of packets that passed filter test.
+    type: MSB_U32
+    units: null
+    mask: null
+
+    
+# MGSS
+- !Packet
+  name: MGSS_SIM_HEATER_STATUS_TLM_MID
+  desc: MGSS Heater Status Data Packet
+  opcode: 21
+  fields:
+  - !Field
+    name: HEATER_STATUS
+    desc: 1 = ON, 0 = OFF
+    type: U8
+    units: null
+    mask: null
+- !Packet
+  name: MGSS_SIM_ON_ORBIT_MODE_TLM_MID
+  desc: MGSS On-Orbit Operating Mode Data Packet
+  opcode: 22
+  fields:
+  - !Field
+    name: ON_ORBIT_ENUM
+    desc: FSW Enumeration
+    type: U8
+    units: null
+    mask: null
+- !Packet
+  name: MGSS_SIM_BT_VOLTAGE_TLM_MID
+  desc: MGSS Battery Voltage Data Packet
+  opcode: 23
+  fields:
+  - !Field
+    name: BAT_VOLTAGE
+    desc: Battery Voltage (Sine Wave)
+    type: MSB_F32
+    units: null
+    mask: null
+- !Packet
+  name: MGSS_SIM_MGSS_CMD_CTR_TLM_MID
+  desc: MGSS App Command Counter
+  opcode: 24
+  fields:
+  - !Field
+    name: CMD_COUNTER
+    desc: Command Counter
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ERR_COUNTER
+    desc: Error Counter
+    type: MSB_U16
+    units: null
+    mask: null
+
+# FM
+- !Packet
+  name: FM_DIRLISTPKT
+  desc: Get Directory Listing telemetry packet
+  opcode: 140
+  fields:
+  - !Field
+    name: DIRNAME
+    desc: Directory Name.
+    type: S8
+    units: null
+    mask: null
+  - !Field
+    name: TOTALFILES
+    desc: Number of files in the directory.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: PACKETFILES
+    desc: Number of files in this packet.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: FIRSTFILE
+    desc: Index into directory files of first packet file.
+    type: MSB_U32
+    units: null
+    mask: null
+#   - !Field
+#     name: FILELIST
+#     desc: Directory listing file data.
+#     type: MSB_U72[180]
+#     units: null
+#     mask: null
+
+- !Packet
+  name: FM_FILEINFOPKT
+  desc: Get File Info telemetry packet
+  opcode: 139
+  fields:
+  - !Field
+    name: FILESTATUS
+    desc: Status indicating whether the file is open or closed.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE
+    desc: Structure padding.
+    type: U8[2]
+    units: null
+    mask: null
+  - !Field
+    name: CRC
+    desc: CRC value if computed.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: FILESIZE
+    desc: File Size.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: LASTMODIFIEDTIME
+    desc: Last Modification Time of File.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: FILENAME
+    desc: Name of File.
+    type: S512
+    units: null
+    mask: null
+
+# - !Packet
+#   name: FM_FREESPACEPKT
+#   desc: Get Free Space telemetry packet (Not in AMPCS DICT)
+#   opcode: 142
+#   fields:
+#   - !Field
+#     name: FILESYS
+#     desc: Array of file system free space entries.
+#     type: MSB_U72[72]
+#     units: null
+#     mask: null
+
+- !Packet
+  name: FM_HOUSEKEEPINGPKT
+  desc: Housekeeping telemetry packet
+  opcode: 138
+  fields:
+  - !Field
+    name: COMMANDCOUNTER
+    desc: Application command counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COMMANDERRCOUNTER
+    desc: Application command error counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPARE
+    desc: Placeholder for unused command warning counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: NUMOPENFILES
+    desc: Number of open files in the system.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDCMDCOUNTER
+    desc: Child task command counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDCMDERRCOUNTER
+    desc: Child task command error counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDCMDWARNCOUNTER
+    desc: Child task command warning counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDQUEUECOUNT
+    desc: Number of pending commands in queue.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDCURRENTCC
+    desc: Command code currently executing.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CHILDPREVIOUSCC
+    desc: Command code previously executed.
+    type: U8
+    units: null
+    mask: null
+
+- !Packet
+  name: FM_OPENFILESPKT
+  desc: Get Open Files telemetry packet
+  opcode: 141
+  fields:
+  - !Field
+    name: NUMOPENFILES
+    desc: Number of files opened via cFE.
+    type: MSB_U32
+    units: null
+    mask: null
+  # - !Field
+  #   name: OPENFILESLIST
+  #   desc: List of files opened via cFE.
+  #   type: MSB_U16[100]
+  #   units: null
+  #   mask: null
+
+- !Packet
+  name: CFE_EVS_SPARE_2
+  desc: "Structure Padding"
+  opcode: 80
+  fields:
+  - !Field
+    name: "Spare"
+    type: U8
+
+# - !Packet
+#   name: CF_APP_TRANS_NUM
+#   desc: "???"
+#   opcode: 80
+#   fields:
+#   - !Field
+#     name: "Confirm with cFS"
+#     type: U8
+
+- !Packet
+  name: HK_HKPACKET
+  desc: HK Application housekeeping Packet
+  opcode: 155
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: Count of valid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: Count of invalid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: PADDING
+    desc: Padding to force 32 bit alignment.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: COMBINEDPACKETSSENT
+    desc: Count of combined tlm pkts sent.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MISSINGDATACTR
+    desc: Number of times missing data was detected.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MEMPOOLHANDLE
+    desc: Memory pool handle used to get mempool diags.
+    type: MSB_U32
+    units: null
+    mask: null
+
+- !Packet
+  name: CFE_HK_COMBINED_PKT1
+  desc: Housekeeping Combined Packet 1
+  opcode: 156
+  fields:
+  - !Field
+    name: COMMANDCOUNTER
+    desc: EVS  Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: COMMANDERRCOUNTER
+    desc: EVS  Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MESSAGEFORMATMODE
+    desc: EVS  Event message format mode (short/long).
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MESSAGETRUNCCOUNTER
+    desc: EVS  Event message truncation counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: TIME_CMDCOUNTER
+    desc: TIME Time Command Execution Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: TIME_ERRCOUNTER
+    desc: TIME Time Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CLOCKSTATEFLAGS
+    desc: TIME State Flags.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: SB_COMMANDCNT
+    desc: SB   Count of valid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SB_CMDERRCNT
+    desc: SB   Count of invalid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: NOSUBSCRIBERSCNT
+    desc: SB   Count pkts sent with no subscribers.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MSGSENDERRCNT
+    desc: SB   Count of message send errors.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ES_CMDCOUNTER
+    desc: ES   The ES Application Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ES_ERRCOUNTER
+    desc: ES   The ES Application Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CFECORECHECKSUM
+    desc: ES   Checksum of cFE Core Code.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TBL_CMDCOUNTER
+    desc: TBL  Count of valid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: TBL_ERRCOUNTER
+    desc: TBL  Count of invalid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: NUMTABLES
+    desc: TBL  Number of Tables Registered.
+    type: MSB_U16
+    units: null
+    mask: null
+
+- !Packet
+  name: HS_HKPACKET
+  desc: Housekeeping Packet Structure
+  opcode: 173
+  fields:
+  - !Field
+    name: CMDCOUNT
+    desc: HS Application Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDERRCOUNT
+    desc: HS Application Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTAPPMONSTATE
+    desc: Status of HS Critical Application Monitor.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTEVENTMONSTATE
+    desc: Status of HS Critical Events Monitor.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTALIVENESSSTATE
+    desc: Status of HS Aliveness Indicator.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTCPUHOGSTATE
+    desc: Status of HS Hogging Indicator.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: STATUSFLAGS
+    desc: Internal HS Error States.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SPAREBYTES
+    desc: Alignment Spares.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: RESETSPERFORMED
+    desc: HS Performed Processor Reset Count.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MAXRESETS
+    desc: HS Maximum Processor Reset Count.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: EVENTSMONITOREDCOUNT
+    desc: Total count of Event Messages Monitored by the Critical Events Monitor.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: INVALIDEVENTMONCOUNT
+    desc: Total count of Invalid Event Monitors Monitored by the Critical Events Monitor.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: APPMONENABLES
+    desc: Enable states of App Monitor Entries.
+    type: MSB_U32[2]
+    units: null
+    mask: null
+  - !Field
+    name: MSGACTEXEC
+    desc: Number of Software Bus Message Actions Executed.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UTILCPUAVG
+    desc: Current CPU Utilization Average.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UTILCPUPEAK
+    desc: Current CPU Utilization Peak.
+    type: MSB_U32
+    units: null
+    mask: null
+
+
+- !Packet
+  name: LC_HKPACKET
+  desc: Housekeeping Packet Structure
+  opcode: 167
+  fields:
+  - !Field
+    name: CMDCOUNT
+    desc: LC Application Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDERRCOUNT
+    desc: LC Application Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CURRENTLCSTATE
+    desc: Current LC application operating state.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: PAD8
+    desc: ''
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: WPRESULTS
+    desc: Packed watchpoint results data, 2 bits per watchpoint.
+    type: U8[48]
+    units: null
+    mask: null
+  - !Field
+    name: APRESULTS
+    desc: Packed actionpoint results data, 4 bits per actionpoint.
+    type: U8[92]
+    units: null
+    mask: null
+  - !Field
+    name: PASSIVERTSEXECCOUNT
+    desc: Total count of RTS sequences not initiated because the LC state is set to
+      LC_STATE_PASSIVE.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: WPSINUSE
+    desc: How many watchpoints are currently in effect.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ACTIVEAPS
+    desc: How many actionpoints are currently active.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: PAD16
+    desc: null
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APSAMPLECOUNT
+    desc: Total count of Actionpoints sampled.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: MONITOREDMSGCOUNT
+    desc: Total count of messages monitored for watchpoints.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: RTSEXECCOUNT
+    desc: Total count of RTS sequences initiated.
+    type: MSB_U32
+    units: null
+    mask: null
+
+
+- !Packet
+  name: MD_DWELLPKT
+  desc: Memory Dwell Telemetry Packet format
+  opcode: 145
+  fields:
+  - !Field
+    name: TABLEID
+    desc: TableId from 1 to MD_NUM_DWELL_TABLES.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ADDRCOUNT
+    desc: Number of addresses being sent - 1..MD_DWELL_TABLE_SIZE valid.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: BYTECOUNT
+    desc: Number of bytes of dwell data contained in packet.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: RATE
+    desc: Number of counts between packet sends.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: DATA
+    desc: Dwell data ( number of bytes varies up to MD_DWELL_TABLE_SIZE *4).
+    type: U8[100]
+    units: null
+    mask: null
+
+- !Packet
+  name: MD_HKTLM
+  desc: Memory Dwell HK Telemetry format
+  opcode: 144
+  fields:
+  - !Field
+    name: INVALIDCMDCNTR
+    desc: Count of invalid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: VALIDCMDCNTR
+    desc: Count of valid commands received.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: DWELLENABLEDMASK
+    desc: Each bit in bit mask enables a table 0x0001=TBL1 enable bit,0x0002=TBL2
+      enable bit, 0x0004=TBL3 enable bit,0x0008=TBL4 enable bit, etc.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: DWELLTBLADDRCOUNT
+    desc: Number of dwell addresses in table.
+    type: MSB_U16[8]
+    units: null
+    mask: null
+  - !Field
+    name: NUMWAITSPERPKT
+    desc: Number of delay counts in table.
+    type: MSB_U16[8]
+    units: null
+    mask: null
+  - !Field
+    name: BYTECOUNT
+    desc: Number of bytes of data specified by table.
+    type: MSB_U16[8]
+    units: null
+    mask: null
+  - !Field
+    name: DWELLPKTOFFSET
+    desc: Current write offset within dwell pkt data region.
+    type: MSB_U16[8]
+    units: null
+    mask: null
+  - !Field
+    name: DWELLTBLENTRY
+    desc: Next dwell table entry to be processed.
+    type: MSB_U16[8]
+    units: null
+    mask: null
+  - !Field
+    name: COUNTDOWN
+    desc: Current value of countdown timer.
+    type: MSB_U16[8]
+    units: null
+    mask: null
+
+
+- !Packet
+  name: MM_HKPACKET
+  desc: Housekeeping Packet Structure
+  opcode: 135
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: MM Application Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: MM Application Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: LASTACTION
+    desc: Last command action executed.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MEMTYPE
+    desc: Memory type for last command.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ADDRESS
+    desc: Fully resolved address used for last command.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: DATAVALUE
+    desc: Last command data value -- may be fill pattern or peek/poke value.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: BYTESPROCESSED
+    desc: Bytes processed for last command.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: FILENAME
+    desc: Name of the data file used for last command, where applicable.
+    type: S512
+    units: null
+    mask: null
+
+- !Packet
+  name: SCH_DIAGPACKET
+  desc: Scheduler Diagnostic Telemetry format
+  opcode: 152
+  fields:
+  - !Field
+    name: ENTRYSTATES
+    desc: States of each Schedule Entry.
+    type: MSB_U16[128]
+    units: null
+    mask: null
+  - !Field
+    name: MSGIDS
+    desc: Message ID of msg associated with each entry.
+    type: MSB_U16[1000]
+    units: null
+    mask: null
+
+- !Packet
+  name: SCH_HKPACKET
+  desc: Scheduler HK Telemetry format
+  opcode: 151
+  fields:
+  - !Field
+    name: CMDCOUNTER
+    desc: Command Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ERRCOUNTER
+    desc: Command Error Counter.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SYNCTOMET
+    desc: Status indicating whether slots are synched to MET.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: MAJORFRAMESOURCE
+    desc: Major Frame Signal source identifier.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SCHEDULEACTIVITYSUCCESSCOUNT
+    desc: Number of successfully performed activities.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SCHEDULEACTIVITYFAILURECOUNT
+    desc: Number of unsuccessful activities attempted.
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SLOTSPROCESSEDCOUNT
+    desc: 'Total # of Schedule Slots (Minor Frames) Processed.'
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: SKIPPEDSLOTSCOUNT
+    desc: Number of times that slots were skipped.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: MULTIPLESLOTSCOUNT
+    desc: Number of times that multiple slots processed.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: SAMESLOTCOUNT
+    desc: '# of times SCH woke up in the same slot as last time'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: BADTABLEDATACOUNT
+    desc: '# of times corrupted table entries were processed'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TABLEVERIFYSUCCESSCOUNT
+    desc: '# of times table loads successfully verified'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TABLEVERIFYFAILURECOUNT
+    desc: '# of times table loads unsuccessfully verified'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TABLEPASSCOUNT
+    desc: '# of times Schedule Table has been processed'
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: VALIDMAJORFRAMECOUNT
+    desc: '# of valid Major Frame tones received'
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: MISSEDMAJORFRAMECOUNT
+    desc: '# of missing Major Frame tones'
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: UNEXPECTEDMAJORFRAMECOUNT
+    desc: '# of unexpected Major Frame tones'
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: MINORFRAMESSINCETONE
+    desc: '# of Minor Frames since last Major Frame tone'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: NEXTSLOTNUMBER
+    desc: Next Minor Frame to be processed.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LASTSYNCMETSLOT
+    desc: Slot number where Time Sync last occurred.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: IGNOREMAJORFRAME
+    desc: Major Frame too noisy to trust.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: UNEXPECTEDMAJORFRAME
+    desc: Most Recent Major Frame signal was unexpected.
+    type: U8
+    units: null
+    mask: null
+
+
+- !Packet
+  name: SC_HKTLM
+  desc: Housekeeping Packet Structure
+  opcode: 170
+  fields:
+  - !Field
+    name: ATSNUMBER
+    desc: current ATS number 1 = ATS A, 2 = ATS B
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: ATPSTATE
+    desc: 'current ATP state valid values are: 2 = IDLE, 5 = EXECUTING'
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CONTINUEATSONFAILUREFLAG
+    desc: In the event of ATS execution failure (ats command fails checksum) , the
+      ATS execution will continue if this flag is set to TRUE and will stop if this
+      flag is set to FALSE.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDERRCTR
+    desc: Counts Request Errors.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: CMDCTR
+    desc: Counts Ground Requests.
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: PADDING8
+    desc: ''
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: SWITCHPENDFLAG
+    desc: is an ats switch pending? 0 = NO, 1 = YES This means that the ATS switch
+      is waiting until a safe time
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: NUMRTSACTIVE
+    desc: number of RTSs currently active
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: RTSNUMBER
+    desc: next RTS number
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: RTSACTIVECTR
+    desc: Increments when an RTS is started without error.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: RTSACTIVEERRCTR
+    desc: Increments when an attempt to start an RTS fails.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ATSCMDCTR
+    desc: Total ATS cmd cnter counts commands sent by the ATS.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ATSCMDERRCTR
+    desc: Total ATS cmd Error ctr command errors in the ATS.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: RTSCMDCTR
+    desc: Counts TOTAL rts cmds that were sent out from ALL active RTSs.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: RTSCMDERRCTR
+    desc: Counts TOTAL number of errs from ALL RTSs that are active.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LASTATSERRSEQ
+    desc: 'Last ATS Errant Sequence Num Values: 1 or 2.'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LASTATSERRCMD
+    desc: Last ATS Errant Command Num.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LASTRTSERRSEQ
+    desc: Last RTS Errant Sequence Num.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: LASTRTSERRCMD
+    desc: The OFFSET in the RTS buffer of the command that had an error It will be
+      a WORD value i.e. 1st command had an error, this value would be 0, if the 2nd
+      command started at int8 10 in the buffer, this value would be 5.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APPENDCMDARG
+    desc: ATS selection argument from most recent Append ATS command.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APPENDENTRYCOUNT
+    desc: Number of cmd entries in current Append ATS table.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APPENDBYTECOUNT
+    desc: Size of cmd entries in current Append ATS table.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: APPENDLOADCOUNT
+    desc: Total number of Append ATS table loads.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: ATPCMDNUMBER
+    desc: current command number
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: ATPFREEBYTES
+    desc: Free Bytes in each ATS.
+    type: MSB_U32[8]
+    units: null
+    mask: null
+  - !Field
+    name: NEXTRTSTIME
+    desc: next RTS cmd Absolute Time
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: NEXTATSTIME
+    desc: Next ATS Command Time (seconds).
+    type: MSB_U32
+    units: null
+    mask: null
+  - !Field
+    name: RTSEXECUTINGSTATUS
+    desc: 'RTS executing status bit map where each uint16 represents 16 RTS numbers.
+      Note: array index numbers and bit numbers use base zero indexing, but RTS numbers
+      use base one indexing. Thus, the LSB (bit zero) of uint16 array index zero represents
+      RTS number 1, and bit one of uint16 array index zero represents RTS number 2,
+      etc. If an RTS is IDLE, then the corresponding bit is zero. If an RTS is EXECUTING,
+      then the corresponding bit is one.'
+    type: MSB_U16[10]
+    units: null
+    mask: null
+  - !Field
+    name: RTSDISABLEDSTATUS
+    desc: 'RTS disabled status bit map where each uint16 represents 16 RTS numbers.
+      Note: array index numbers and bit numbers use base zero indexing, but RTS numbers
+      use base one indexing. Thus, the LSB (bit zero) of uint16 array index zero represents
+      RTS number 1, and bit one of uint16 array index zero represents RTS number 2,
+      etc. If an RTS is ENABLED, then the corresponding bit is zero. If an RTS is
+      DISABLED, then the corresponding bit is one.'
+    type: MSB_U16[10]
+    units: null
+    mask: null
+
+- !Packet
+  name: TO_HKPACKET
+  desc: Telemetry Output Housekeeping Packet
+  opcode: 128
+  fields:
+  - !Field
+    name: TO_COMMAND_COUNT
+    desc: Count of all commands received
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_COMMAND_ERROR_COUNT
+    desc: Count of command errors
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_MESSAGE_SUB_COUNT
+    desc: Count of subscribed messages by all telemetry pipe.
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_MESSAGE_SUB_ERROR_COUNT
+    desc: Count of subscription errors
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_TABLE_UPDATE_COUNT
+    desc: Count of table updates through CFE_TBL
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_TABLE_UPDATE_ERROR_COUNT
+    desc: Count of table update errors
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_CONFIG_ROUTES
+    desc: Current mask of configured routes
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_ENABLED_ROUTES
+    desc: Current mask of enabled routes
+    type: MSB_U16
+    units: null
+    mask: null
+
+- !Packet
+  name: TO_OUT_DATA_MID
+  desc: Telemetry Output Out Data Packet
+  opcode: 129
+  fields: []
+
+- !Packet
+  name: TO_DATA_TYPE_PACKET
+  desc: Telemetry Output Data Types Packet
+  opcode: 130
+  fields:
+  - !Field
+    name: SYNCH
+    desc: Synch
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_BITS
+    desc: '16 bits total, broken down as: bit1:1; bit2:1; bit34:2; bit56:2; bit78:2;
+      nibble1:4; nibble2:4;'
+    type: MSB_U16
+    units: null
+    mask: null
+  - !Field
+    name: TO_BL_1
+    desc: Boolean
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: TO_BL_2
+    desc: Boolean
+    type: U8
+    units: null
+    mask: null
+  - !Field
+    name: TO_B_1
+    desc: Bytes
+    type: I8
+    units: null
+    mask: null
+  - !Field
+    name: TO_B_2
+    desc: Bytes
+    type: I8
+    units: null
+    mask: null
+  - !Field
+    name: TO_B_3
+    desc: Bytes
+    type: I8
+    units: null
+    mask: null
+  - !Field
+    name: TO_B_4
+    desc: Bytes
+    type: I8
+    units: null
+    mask: null
+  - !Field
+    name: TO_W_1
+    desc: Words
+    type: MSB_I16
+    units: null
+    mask: null
+  - !Field
+    name: TO_W_2
+    desc: Words
+    type: MSB_I16
+    units: null
+    mask: null
+  - !Field
+    name: TO_DW_1
+    desc: Double Words
+    type: MSB_I32
+    units: null
+    mask: null
+  - !Field
+    name: TO_DW_2
+    desc: Double Words
+    type: MSB_I32
+    units: null
+    mask: null
+  - !Field
+    name: TO_F_1
+    desc: Floats
+    type: MSB_F32
+    units: null
+    mask: null
+  - !Field
+    name: TO_F_2
+    desc: Floats
+    type: MSB_F32
+    units: null
+    mask: null
+  - !Field
+    name: TO_DF_1
+    desc: Double Floats
+    type: MSB_F64
+    units: null
+    mask: null
+  - !Field
+    name: TO_DF_2
+    desc: Double Floats
+    type: MSB_F64
+    units: null
+    mask: null
+  - !Field
+    name: TO_STR
+    desc: char str[10];
+    type: S80
+    units: null
+    mask: null
