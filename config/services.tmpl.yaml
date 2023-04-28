@@ -24,19 +24,19 @@ bifrost:
         key_values:
           global:
             mission:
-              pass_id: 6
+              pass_id: ${PASS_ID}
             paths:
-              data_path: '/home/jpluser/products/'
+              data_path: ${DATA_PATH}
             aws:
-              profile: saml-gov
-              bucket: ait-test
-              region: us-gov-west-1
+              profile: ${AWS_PROFILE}
+              bucket: ${AWS_S3_BUCKET}
+              region: ${AWS_REGION}
 
           instance:
             space_vehicle:
-              sv_name: mitd
-              sv_identifier: 'M-001'
-              ccsds_dl_scid: 99
+              sv_name: ${SV_NAME}
+              sv_identifier: ${SV_IDENTIFIER}
+              ccsds_dl_scid: ${CCSDS_DOWNLINK_SCID}
 
     - service:
         name: bifrost.services.testing.examples.echo.Echo
@@ -58,9 +58,9 @@ bifrost:
   
     - service:
         name: bifrost.services.dsn_services.raf_downlink_service.SLE_RAF_Service
-        disabled: True
-        report_time_s: 5
-        autorestart: False
+        disabled: ${SERVICE_SLE_RAF_DISABLE}
+        report_time_s: ${SERVICE_SLE_RAF_REPORT_TIME_S}
+        autorestart: ${SERVICE_SLE_RAF_AUTORESTART}
         output_stream: 'Telemetry.AOS.Raw'
         topics:
           directive_stop_sle:
@@ -70,9 +70,9 @@ bifrost:
         
     - service:
         name: bifrost.services.dsn_services.cltu_uplink_service.SLE_CLTU_Uplink_Service
-        disabled: True
-        report_time_s: 5
-        autorestart: False
+        disabled: ${SERVICE_SLE_CLTU_DISABLE}
+        report_time_s: ${SERVICE_SLE_CLTU_REPORT_TIME_S}
+        autorestart: ${SERVICE_SLE_CLTU_AUTORESTART}
         topics:
           directive_stop_sle:
             - 'Bifrost.Directive.SLE.CLTU.Stop'
@@ -85,17 +85,17 @@ bifrost:
 
     - service:
         name: bifrost.services.core.web.Web_Server
-        disabled: False
+        disabled: ${SERVICE_WEB_DISABLE}
         telemetry_stream_pattern: 'Telemetry.AOS.VCID.0.TaggedPacket.>'
-        index: '/sunrise/SunRISE-Bifrost/sunrise/test/'
+        index: ${SERVICE_WEB_ROOT_DIRECTORY}
         downlink_update_pattern: 'Bifrost.Messages.Info.File_Processor.Downlink_Update'
         
     - service:
         name: bifrost.services.core.influx.Influx
-        disabled: False
-        host_url: http://localhost:8086
-        api_token: "EtL0WErH5eTrCa-yOyCRtotvkKONsM5JxjcSfMan6K0gegESd-TvgiEfwAhD2c5bTxsBX-xXwhmcusGsXAup_w=="
-        org: mgss
+        disabled: ${SERVICE_INFLUX_DISABLE}
+        host_url: ${SERVICE_INFLUX_URL}
+        api_token: '${SERVICE_INFLUX_TOKEN}'
+        org: ${SERVICE_INFLUX_ORG}
         streams: Null
         topics:
           write_telemetry:
@@ -105,14 +105,14 @@ bifrost:
 
     - service:
         name: bifrost.services.uplink.packet_padder.Packet_Padder
-        disabled: True
+        disabled: ${SERVICE_PACKET_PADDER_DISABLE}
         topics:
           process:
             - Uplink.CmdMetaData.Space_Packet
 
     - service:
         name: bifrost.services.core.space_packet_service.Space_Packet_Service
-        disabled: True
+        disabled: ${SERVICE_SPACE_PACKET_DISABLE}
         topics:
           packetize_cmd_metadata:
             - Uplink.CmdMetaData
@@ -123,15 +123,15 @@ bifrost:
 
     - service:
         name: bifrost.services.core.monitoring.Monitor
-        disabled: False
+        disabled: ${SERVICE_MONITOR_DISABLE}
         topics:
           process:
             - 'Bifrost.Monitors.>'
-        report_time_s: 5
+        report_time_s: ${SERVICE_MONITOR_REPORT_TIME_S}
 
     - service:
         name: bifrost.services.uplink.tctf_service.TCTF_Service
-        disabled: False
+        disabled: ${SERVICE_TCTF_DISABLE}
         topics:
           process:
             #- Uplink.CmdMetaData.Padded
@@ -140,15 +140,15 @@ bifrost:
             - Uplink.CmdMetaData
     - service:
         name: bifrost.services.sdls_services.sdls_encrypter_service.SDLS_Encrypter_Service
-        disabled: True
-        report_time_s: 10
+        disabled: ${SERVICE_SDLS_ENCRYPTER_DISABLE}
+        report_time_s: ${SERVICE_SDLS_ENCRYPTER_REPORT_TIME_S}
         topics:
           process:
             - Uplink.CmdMetaData.TCTF
 
     - service:
         name: bifrost.services.uplink.ccsds_randomizer_service.CCSDS_Randomizer_Service
-        disabled: True
+        disabled: ${SERVICE_CCSDS_RANDOMIZER_DISABLE}
         topics:
           randomize_sdls:
             - Uplink.CmdMetaData.SDLS
@@ -157,7 +157,7 @@ bifrost:
 
     - service:
         name: bifrost.services.uplink.CLTU_service.CLTU_Service
-        disabled: False
+        disabled: ${SERVICE_CLTU_DISABLE}
         CLTU_start: '0x55555555555555555555EB90'
         CLTU_tail: '0xc5c5c5c5c5c5c579'
         topics:
@@ -170,7 +170,7 @@ bifrost:
 
     - service:
         name: bifrost.services.uplink.BCH_service.BCH_Service
-        disabled: False
+        disabled: ${SERVICE_BCH_DISABLE}
         topics:
           encode_cmd_metadata:
             - Uplink.CmdMetaData.TCTF
@@ -181,15 +181,15 @@ bifrost:
 
     - service:
         name: bifrost.services.extra.synchronization_service.Synchronization_Service
-        disabled: True
+        disabled: ${SERVICE_SYNCHRONIZATION_DISABLE}
         topics:
           process:
             - create_CLTU
 
     - service:
         name: bifrost.services.networking.tcp_service.TCP_Manager
-        disabled: False
-        report_time_s: 5
+        disabled: ${SERVICE_TCP_DISABLE}
+        report_time_s: ${SERVICE_TCP_REPORT_TIME_S}
         topics:
           process:            
             - Uplink.CmdMetaData.CLTU
@@ -203,23 +203,23 @@ bifrost:
             - Bifrost.Directive.TCP_Manager.Reconnect
             
         subscriptions:
-          FSW_SIM_Uplink:
+          CMD_FSW_SIM:
             topic: Uplink.CmdMetaData.CLTU
-            hostname: cfs
-            port: 25002
+            hostname: ${SERVICE_TCP_CMD_HOST}
+            port: ${SERVICE_TCP_CMD_PORT}
             mode: TRANSMIT
             timeout_seconds: 1
 
-          FSW_SIM_Downlink:
+          TLM_FSW_SIM:
             topic: Telemetry.AOS.Raw.Beef
-            hostname: cfs
-            port: 25003
+            hostname: ${SERVICE_TCP_TLM_HOST}
+            port: ${SERVICE_TCP_TLM_PORT}
             mode: RECEIVE
             timeout_seconds: 1
 
     - service:
         name: bifrost.services.downlink.frame_processors.real_time_processor.RealTime_Telemetry_Frame_Processor
-        disabled: False
+        disabled: ${FRAME_PROCESSOR_REALTIME_DISABLE}
         topics: Null
         streams:
           process:
@@ -227,7 +227,7 @@ bifrost:
 
     - service:
         name: bifrost.services.extra.synchronization_service.Desynchronization_Service
-        disabled: True
+        disabled: ${SERVICE_DESYNCHRONIZATION_DISABLE}
         topics: Null
         streams:
           desynchronize:
@@ -235,7 +235,7 @@ bifrost:
 
     - service:
         name: bifrost.services.extra.synchronization_service.ASM_Desynchronization_Service
-        disabled: False
+        disabled: ${ASM_DESYNCHRONIZATION_SERVICE_DISABLE}
         topics: Null
         streams:
           desynchronize:
@@ -243,10 +243,10 @@ bifrost:
 
     - service:
         name: bifrost.services.testing.data_loss_services.Loss_Service
-        disabled: True
-        active: False
-        percent: 5.25
-        announce: False
+        disabled: ${SERVICE_LOSS_DISABLE}
+        active: ${SERVICE_LOSS_ACTIVE}
+        percent: ${SERVICE_LOSS_PERCENT}
+        announce: ${SERVICE_LOSS_ANNOUNCE}
         topics: Null
         streams:
           process:
@@ -254,10 +254,10 @@ bifrost:
 
     - service:
         name: bifrost.services.testing.data_loss_services.Corruption_Service
-        disabled: True
-        active: False
-        percent: 25.25
-        announce: False
+        disabled: ${SERVICE_CORRUPTION_DISABLE}
+        active: ${SERVICE_CORRUPTION_ACTIVE}
+        percent: ${SERVICE_CORRUPTION_PERCENT}
+        announce: ${SERVICE_CORRUPTION_ANNOUNCE}
         topics: Null
         stream:
           process:
@@ -265,7 +265,7 @@ bifrost:
            
     - service:
         name: bifrost.services.downlink.frame_checks_service.AOS_Frame_Checks_Service
-        disabled: False
+        disabled: ${SERVICE_AOS_FRAME_CHECKS_DISABLE}
         topics: Null
         fec_check: False
         streams:
@@ -274,9 +274,9 @@ bifrost:
 
     - service:
         name: bifrost.services.core.commanding.command_loader_service.Command_Loader_Service
-        disabled: False
-        default_cl_path: ''
-        default_uplink_path: ''
+        disabled: ${SERVICE_COMMAND_LOADER_DISABLE}
+        default_cl_path: ${SERVICE_COMMAND_LOADER_DEFAULT_CL_PATH}
+        default_uplink_path: ${SERVICE_COMMAND_LOADER_DEFAULT_UPLINK_PATH}
         topics:
           show:
             - CL.Show
@@ -289,7 +289,7 @@ bifrost:
 
     - service:
         name: bifrost.services.core.dictionary_services.Command_Dictionary_Service
-        disabled: False
+        disabled: ${SERVICE_COMMAND_DICTIONARY_DISABLE}
         topics:
           generate_command: 
             - 'Bifrost.Services.Dictionary.Command.Generate'
@@ -299,13 +299,10 @@ bifrost:
 
     - service:
         name: bifrost.services.downlink.frame_processors.frame_archive_processor.Frame_Archive_Processor
-        disabled: False
-        frame_ext: .AOSTF
+        disabled: ${TELEMETRY_PROCESSOR_FRAME_ARCHIVE_DISABLE}
+        frame_ext: ${TELEMETRY_PROCESSOR_FRAME_ARCHIVE_EXTENSION}
         vcid_interests:
           0: True
-          2: False
-          4: False
-          63: False
         topics: Null
         streams:
           process:
@@ -313,34 +310,77 @@ bifrost:
 
     - service:
         name: bifrost.services.testing.injector_service.Data_Injection_Service
-        disabled: False
+        disabled: ${SERVICE_DATA_INJECTION_DISABLE}
         topics:
           inject_binary_stream:
             - 'Bifrost.Directive.Data_Injection_Service.Inject_Binary_Stream'
 
     - service:
         name: bifrost.services.testing.archive_services.Raw_Frame_Archive_Service
-        disabled: True
-        frame_extension: '.AOS_TF'
+        disabled: ${SERVICE_RAW_FRAME_ARCHIVE_DISABLE}
+        frame_extension: ${SERVICE_RAW_FRAME_ARCHIVE_EXTENSION}
         vcid_interests:
           0: True
-          2: True
-          4: True
-          63: False
         streams:
           archive:
             - 'Telemetry.AOS.Raw'
 
     - service:
         name: bifrost.services.extra.nasa_fss_service.NASA_FSS_Service
-        disabled: False
+        disabled: ${SERVICE_NASA_FSS_DISABLE}
         topics:
           directive_command:
             - Bifrost.Directive.NASA_FSS_Service.Command
 
     - service:
         name: bifrost.services.downlink.evr_services.EVR_Service
-        disabled: False
+        disabled: ${SERVICE_EVR_DISABLE}
         topics:
           process_evr:
             - "Telemetry.AOS.VCID.0.TaggedPacket.CFE_EVS_EVENT_MSG_PACKET"
+
+    - service:
+        name: bifrost.services.core.task_manager.task_manager.Task_Manager
+        disabled: ${SERVICE_TASK_MANAGER_DISABLE}
+        auto_s3_upload: ${SERVICE_TASK_MANAGER_AUTO_S3_UPLOAD}
+        streams: Null
+        topics:
+          finalize_s3:
+            - S3_File_Upload
+          finalize:
+            - Untar
+            - Bz2_Decompress
+            - CSV_to_Influx
+          finalize_reassembly:
+            - File_Reassembly
+
+        task_transformers:
+          # Taskname:
+          #   Task Transformer 1:
+          #   Task Transformer 2:
+          #     filename_filters:
+          #       - <Regular Expression>' # Single Quotes
+          #     args:
+          #        variable1: value
+          #        variable2: value
+          File_Reassembly:
+            S3_File_Upload:
+              filename_filters:
+                - '.*'
+
+            Untar:
+              filename_filters:
+                - '^sensors.*\.(tar)$'
+
+          Untar:
+            Bz2_Decompress:
+              filename_filters:
+                - '^sensors.*\.(bz2)$'
+
+          Bz2_Decompress:
+            Post_Process:
+              filename_filters:
+                - '^sensors.*[^.]{9}$' # Stop matching to avoid .metadata 
+              args:
+                processor:
+                  - sensors

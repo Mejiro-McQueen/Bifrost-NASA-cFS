@@ -1,12 +1,12 @@
 default:
     cmddict:
-        filename:  cmd.yaml
+        filename:  ${CMD_DICT_FILEPATH}
 
     tlmdict:
-        filename:  tlm.yaml
+        filename:  ${TLM_DICT_FILEPATH}
 
     alarms:
-        filename:  alarms.yaml
+        filename:  ${ALARMS_FILEPATH}
 
     dsn:
         encryption:
@@ -20,16 +20,16 @@ default:
                     - cryptolib.process_tc.ignore_antireplay=true
                     - cryptolib.process_tc.ignore_sa_state=true
                     - cryptolib.process_tc.process_pdus=false
-                    - cryptolib.sadb.mariadb.fqdn=localhost
-                    - cryptolib.sadb.mariadb.username=''
-                    - cryptolib.sadb.mariadb.password=''
+                    - cryptolib.sadb.mariadb.fqdn=${MARIADB_HOST}
+                    - cryptolib.sadb.mariadb.username=${MARIADB_USER}
+                    - cryptolib.sadb.mariadb.password=${MARIADB_PASS}
                     #- cryptolib.sadb.mariadb.tls.cacert=/home/jpluser/kmc/ammos-ca-bundle.crt
                     #- cryptolib.sadb.mariadb.tls.verifyserver=true
                     #- cryptolib.sadb.mariadb.mtls.clientcert=/home/jpluser/kmc/local-test-cert.pem
                     #- cryptolib.sadb.mariadb.mtls.clientkey=/home/jpluser/kmc/local-test-key.pem
                     #- cryptolib.sadb.mariadb.require_secure_transport=true
                     - cryptolib.crypto.kmccryptoservice.protocol=https
-                    - cryptolib.crypto.kmccryptoservice.fqdn=kmc.somehost.jpl.nasa.gov
+                    - cryptolib.crypto.kmccryptoservice.fqdn=${KMC_HOST}
                     - cryptolib.crypto.kmccryptoservice.app=crypto-service
                     - cryptolib.crypto.kmccryptoservice.mtls.clientcert=/home/jpluser/kmc/client-cert.pem
                     - cryptolib.crypto.kmccryptoservice.mtls.clientcertformat=PEM
@@ -59,10 +59,10 @@ default:
                     - cryptolib.tc.123.3.max_frame_length=1024
                     #kmc_property_file: None
         sle:
-            initiator_id: ''
-            initiator_pw : ''
-            responder_id: ''
-            responder_pw: ''
+            initiator_id: ${DSN_SLE_INITIATOR_ID}
+            initiator_pw : ${DSN_SLE_INITIATOR_PASS}
+            responder_id: ${DSN_SLE_RESPONDER_ID}
+            responder_pw: ${DSN_SLE_RESPONDER_PASS}
             downlink_frame_type: AOSTransFrame
             heartbeat: 120
             deadfactor: 5
@@ -87,28 +87,28 @@ default:
                 max_tctf_size_enc_octets:  994  # Size limit for TCTFs passed to KMC
                 expected_sdls_type: CLEAR # <CLEAR | AUTH | ENC >
             rcf:
-                inst_id: sagr=PARARERU.spack=PARARERU.rsl-fg=1.rcf=onlc2
+                inst_id: ${DSN_SLE_RCF_INST_ID}
                 hostnames:
-                    - ''
+                    - ${DSN_SLE_RCF_HOSTNAME}
                 port: 5306
                 version: 4
-                spacecraft_id: 99
+                spacecraft_id: ${DSN_SCID}
                 trans_frame_ver_num: 0
-                auth_level: 'bind'
+                auth_level: ${DSN_SLE_RCF_AUTH_LEVEL}
             raf:
-                inst_id: sagr=CHOME.spack=CHOME-CHOME=1.raf=CHOME
+                inst_id: ${DSN_SLE_RAF_INST_ID}
                 hostnames:
-                    - ''
-                port: 5306
+                    - ${DSN_SLE_RAF_HOSTNAME}
+                port: ${DSN_SLE_RAF_PORT}
                 version: 4
-                auth_level: 'bind'
+                auth_level: ${DSN_SLE_RAF_AUTH_LEVEL}
             fcltu:
-                inst_id: sagr=PARARERU.spack=PARARERU.rsl-fg=1.rcf=onlc2
+                inst_id: ${DSN_SLE_FCLTU_INST_ID}
                 hostnames:
-                    - ''
-                port: 5112
+                    - ${DSN_SLE_FCLTU_HOSTNAME}
+                port: ${DSN_SLE_FCLTU_PORT}
                 version: 4
-                auth_level: 'bind'
+                auth_level: ${DSN_SLE_FCLTU_AUTH_LEVEL}
             aos:
                 frame_header_error_control_included: false
                 transfer_frame_insert_zone_len: 0

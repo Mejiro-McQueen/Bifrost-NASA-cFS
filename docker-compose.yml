@@ -1,0 +1,72 @@
+version: "3.3"
+services:
+  bifrost:
+    image: bifrost:cFS
+    build: .
+    container_name: bifrost
+    ports:
+      - 8000:8000
+    extra_hosts:
+      - "fss:192.168.99.3"
+    volumes:
+     - /gds:/gds:z
+    env_file: bifrost.env
+    networks: ["bifrost-network"]
+    depends_on:
+      nats:
+        condition: service_healthy
+      influx: 
+        condition: service_healthy
+    #entrypoint: ["bash"]
+
+  nats:
+    image: nats:alpine
+    container_name: nats
+    ports:
+      - "8222:8222"
+    command: '--server_name nats-bifrost --jetstream  --http_port 8222'
+    networks: ["bifrost-network"]
+    healthcheck:
+      test: "wget --server-response localhost:8222/healthz 2>&1 | grep  '200 OK' || exit 1"
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    #entrypoint: ["ash"]
+
+  influx:
+    image: influxdb:latest
+    container_name: influx
+    networks: ["bifrost-network"]
+    environment:
+      # Be sure to match the equivalent values in the bifrost.env file
+      # TIP to recover tokens: docker exec influx influx auth list | awk '/$DOCKER_INFLUXDB_INIT_USERNAME/ {print $4 " "}'
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=rootroot
+      - DOCKER_INFLUXDB_INIT_PASSWORD=rootroot
+      - DOCKER_INFLUXDB_INIT_ORG=Mithril
+      - DOCKER_INFLUXDB_INIT_BUCKET=Tuatha_de_Danaan
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=AtoTallYLegiTKey
+    ports:
+      - 8086:8086
+    volumes:
+       - /gds/influx/data:/var/lib/influxdb2:z
+       - /gds/influx/config:/etc/influxdb2:z
+    healthcheck:
+      test: "curl -f influx:8086/"
+      interval: 2s
+      timeout: 5s
+      retries: 5
+
+  nats-cli:
+    image: nats-cli
+    build: ./nats-cli/
+    container_name: nats-cli
+    networks: ["bifrost-network"]
+    depends_on:
+      nats:
+        condition: service_healthy
+    entrypoint: ["bash"]
+      
+networks:
+  bifrost-network:
+    name: bifrost-network
