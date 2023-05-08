@@ -2,6 +2,7 @@
 - !Packet
   name: CFE_ES_HKPACKET
   desc: Executive Services Housekeeping Packet
+  subsystem: CFE
   opcode: 0
   fields:
   - !Field
@@ -238,6 +239,7 @@
 - !Packet
   name: CFE_EVS_EVENT_MSG_PACKET
   desc: Event Message Telemetry Packet
+  subsystem: CFE
   opcode: 8
   fields:
   - !Field
@@ -292,6 +294,7 @@
 - !Packet
   name: CFE_EVS_HKPACKET
   desc: Event Services Housekeeping Telemetry Packet
+  subsystem: CFE
   opcode: 1
   fields:
   - !Field
@@ -389,6 +392,7 @@
 - !Packet
   name: CFE_SB_HKPACKET
   desc: Software Bus task housekeeping Packet
+  subsystem: CFE
   opcode: 3
   fields:
   - !Field
@@ -492,6 +496,7 @@
 - !Packet
   name: CFE_TBL_HKPACKET
   desc: Table Services Housekeeping Packet
+  subsystem: CFE
   opcode: 4
   fields:
   - !Field
@@ -625,6 +630,7 @@
 - !Packet
   name: CFE_TIME_HKPACKET
   desc: Time Services Housekeeping Packet
+  subsystem: CFE
   opcode: 5
   fields:
   - !Field
@@ -694,12 +700,11 @@
     units: null
     mask: null
 
-
-
 #CF_TLM
 - !Packet
   name: CF_HKPACKET
-  desc: CF Application housekeeping Packet
+  desc: CF
+  subsystem: CF
   opcode: 176
   fields:
   - !Field
@@ -948,9 +953,11 @@
   #   type: MSB_U416[2]
   #   units: null
   #   mask: null
+  
 - !Packet
   name: CF_TRANSPACKET
   desc: CF Application Single Transaction Status Packet
+  subsystem: CF
   opcode: 177
   fields:
   - !Field
@@ -1175,6 +1182,7 @@
 - !Packet
   name: CI_ACKPKT
   desc: CI HKPACKET
+  subsystem: CI
   opcode: 4608
   fields: []
 
@@ -1182,6 +1190,7 @@
 - !Packet
   name: CS_HKPACKET
   desc: Housekeeping Packet Structure
+  subsystem: CS
   opcode: 164
   fields:
   - !Field
@@ -1351,6 +1360,7 @@
 # - !Packet
 #   name: DS_FILEINFOPKT
 #   desc: DS application file info packet
+#   subsystem: DS
 #   opcode: 185
 #   fields:
 #   - !Field
@@ -1363,6 +1373,7 @@
 - !Packet
   name: DS_HKPACKET
   desc: DS application housekeeping packet
+  subsystem: DS
   opcode: 184
   fields:
   - !Field
@@ -1467,6 +1478,7 @@
 - !Packet
   name: MGSS_SIM_HEATER_STATUS_TLM_MID
   desc: MGSS Heater Status Data Packet
+  subsystem: MGSS
   opcode: 21
   fields:
   - !Field
@@ -1476,8 +1488,10 @@
     units: null
     mask: null
 - !Packet
+
   name: MGSS_SIM_ON_ORBIT_MODE_TLM_MID
   desc: MGSS On-Orbit Operating Mode Data Packet
+  subsystem: MGSS
   opcode: 22
   fields:
   - !Field
@@ -1486,9 +1500,11 @@
     type: U8
     units: null
     mask: null
+    
 - !Packet
   name: MGSS_SIM_BT_VOLTAGE_TLM_MID
   desc: MGSS Battery Voltage Data Packet
+  subsystem: MGSS
   opcode: 23
   fields:
   - !Field
@@ -1497,9 +1513,11 @@
     type: MSB_F32
     units: null
     mask: null
+    
 - !Packet
   name: MGSS_SIM_MGSS_CMD_CTR_TLM_MID
   desc: MGSS App Command Counter
+  subsystem: MGSS
   opcode: 24
   fields:
   - !Field
@@ -1519,6 +1537,7 @@
 - !Packet
   name: FM_DIRLISTPKT
   desc: Get Directory Listing telemetry packet
+  subsystem: FM
   opcode: 140
   fields:
   - !Field
@@ -1555,6 +1574,7 @@
 - !Packet
   name: FM_FILEINFOPKT
   desc: Get File Info telemetry packet
+  subsystem: FM
   opcode: 139
   fields:
   - !Field
@@ -1597,6 +1617,7 @@
 # - !Packet
 #   name: FM_FREESPACEPKT
 #   desc: Get Free Space telemetry packet (Not in AMPCS DICT)
+#   subsystem: FM
 #   opcode: 142
 #   fields:
 #   - !Field
@@ -1609,6 +1630,7 @@
 - !Packet
   name: FM_HOUSEKEEPINGPKT
   desc: Housekeeping telemetry packet
+  subsystem: FM
   opcode: 138
   fields:
   - !Field
@@ -1675,6 +1697,7 @@
 - !Packet
   name: FM_OPENFILESPKT
   desc: Get Open Files telemetry packet
+  subsystem: FM
   opcode: 141
   fields:
   - !Field
@@ -1692,6 +1715,7 @@
 
 - !Packet
   name: CFE_EVS_SPARE_2
+  subsystem: CFE
   desc: "Structure Padding"
   opcode: 80
   fields:
@@ -1701,6 +1725,7 @@
 
 # - !Packet
 #   name: CF_APP_TRANS_NUM
+#   subsystem: CF
 #   desc: "???"
 #   opcode: 80
 #   fields:
@@ -1711,6 +1736,7 @@
 - !Packet
   name: HK_HKPACKET
   desc: HK Application housekeeping Packet
+  subsystem: HK
   opcode: 155
   fields:
   - !Field
@@ -1753,6 +1779,7 @@
 - !Packet
   name: CFE_HK_COMBINED_PKT1
   desc: Housekeeping Combined Packet 1
+  subsystem: CFE
   opcode: 156
   fields:
   - !Field
@@ -1861,6 +1888,7 @@
 - !Packet
   name: HS_HKPACKET
   desc: Housekeeping Packet Structure
+  subsystem: HS
   opcode: 173
   fields:
   - !Field
@@ -1964,6 +1992,7 @@
 - !Packet
   name: LC_HKPACKET
   desc: Housekeeping Packet Structure
+  subsystem: LC
   opcode: 167
   fields:
   - !Field
@@ -2050,6 +2079,7 @@
 - !Packet
   name: MD_DWELLPKT
   desc: Memory Dwell Telemetry Packet format
+  subsystem: MD
   opcode: 145
   fields:
   - !Field
@@ -2085,6 +2115,7 @@
 
 - !Packet
   name: MD_HKTLM
+  subsystem: MD
   desc: Memory Dwell HK Telemetry format
   opcode: 144
   fields:
@@ -2147,6 +2178,7 @@
 
 - !Packet
   name: MM_HKPACKET
+  subsystem: MM
   desc: Housekeeping Packet Structure
   opcode: 135
   fields:
@@ -2202,6 +2234,7 @@
 - !Packet
   name: SCH_DIAGPACKET
   desc: Scheduler Diagnostic Telemetry format
+  subsystem: SCH
   opcode: 152
   fields:
   - !Field
@@ -2220,6 +2253,7 @@
 - !Packet
   name: SCH_HKPACKET
   desc: Scheduler HK Telemetry format
+  subsystem: SCH
   opcode: 151
   fields:
   - !Field
@@ -2359,6 +2393,7 @@
 - !Packet
   name: SC_HKTLM
   desc: Housekeeping Packet Structure
+  subsystem: SC
   opcode: 170
   fields:
   - !Field
@@ -2554,6 +2589,7 @@
 - !Packet
   name: TO_HKPACKET
   desc: Telemetry Output Housekeeping Packet
+  subsystem: TO
   opcode: 128
   fields:
   - !Field
@@ -2608,12 +2644,14 @@
 - !Packet
   name: TO_OUT_DATA_MID
   desc: Telemetry Output Out Data Packet
+  subsystem: TO
   opcode: 129
   fields: []
 
 - !Packet
   name: TO_DATA_TYPE_PACKET
   desc: Telemetry Output Data Types Packet
+  subsystem: TO
   opcode: 130
   fields:
   - !Field
