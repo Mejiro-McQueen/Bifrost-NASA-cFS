@@ -2,7 +2,7 @@ version: "3.3"
 services:
   bifrost:
     image: bifrost:cFS
-    build: ../Bifrost/
+    build: .
     container_name: bifrost
     ports:
       - 8000:8000
