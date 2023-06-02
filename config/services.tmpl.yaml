@@ -6,9 +6,11 @@ bifrost:
         watchdog_timer_s: 1
         topics:
           request_config_value:
-            - 'Reconfiguration_Service.Request'
+            - 'Bifrost.Configuration.Request.Value'
           utc_timestamp_now:
             - 'Bifrost.Configuration.UTC_Now'
+          emit_reconfigure_all:
+            - 'Bifrost.Configuration.Emit.All'
           request_downlink_path:
             - 'Bifrost.Configuration.Downlink_Path'
         stream_declarations:
@@ -34,8 +36,8 @@ bifrost:
 
           instance:
             space_vehicle:
-              sv_name: ${SV_NAME}
-              sv_identifier: ${SV_IDENTIFIER}
+              name: ${SV_NAME}
+              identifier: ${SV_IDENTIFIER}
               ccsds_dl_scid: ${CCSDS_DOWNLINK_SCID}
 
     - service:

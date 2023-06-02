@@ -1,7 +1,7 @@
 # Reminder to build and tag from your fork of the bifrost repository first.
 FROM bifrost:latest
 
-# Your repository name
+# Your repository name (same as python namespace)
 ENV PROJECT=cFS
 
 # Install dependencies of your project expansion
