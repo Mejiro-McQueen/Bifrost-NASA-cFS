@@ -14,15 +14,27 @@ bifrost:
           request_downlink_path:
             - 'Bifrost.Configuration.Downlink_Path'
         stream_declarations:
+          Uplink:
+            - 'Uplink.CmdMetaData'
+            - 'Uplink.CmdMetaData.CLTU'
+            - 'Uplink.CmdMetaData.Space_Packet'
+            - 'Uplink.CmdMetaData.TCTF'
+            - 'Uplink.CmdMetaData.TCTF.Random'
+            - 'Uplink.CmdMetaData.SDLS'
+            - 'Uplink.CmdMetaData.SDLS.Random'
+            - 'Uplink.CmdMetaData.TCTF.BCH'
+            - 'Uplink.CmdMetaData.SDLS.BCH'
+            - 'Uplink.CmdMetaData.Complete'
+            - 'Uplink.CmdMetaData.Padded'
           Telemetry:
             - 'Telemetry.AOS.Raw.Beef'
             - 'Telemetry.AOS.Raw'
 
-            - 'Telemetry.AOS.VCID.0.TaggedFrame'
             - 'Telemetry.AOS.VCID.Unknown.TaggedFrame'
-
+            
+            - 'Telemetry.AOS.VCID.0.TaggedFrame'
             - 'Telemetry.AOS.VCID.0.TaggedPacket'
-
+            - 'Telemetry.AOS.VCID.0.TaggedPacket.Decoded'
         key_values:
           global:
             mission:
@@ -38,7 +50,7 @@ bifrost:
             space_vehicle:
               name: ${SV_NAME}
               identifier: ${SV_IDENTIFIER}
-              ccsds_dl_scid: ${CCSDS_DOWNLINK_SCID}
+              ccsds_downlink_scid: ${CCSDS_DOWNLINK_SCID}
 
     - service:
         name: bifrost.services.testing.examples.echo.Echo
@@ -88,7 +100,7 @@ bifrost:
     - service:
         name: bifrost.services.core.web.Web_Server
         disabled: ${SERVICE_WEB_DISABLE}
-        telemetry_stream_pattern: 'Telemetry.AOS.VCID.0.TaggedPacket.>'
+        telemetry_stream_pattern: 'Telemetry.AOS.VCID.0.TaggedPacket.Decoded'
         index: ${SERVICE_WEB_ROOT_DIRECTORY}
         downlink_update_pattern: 'Bifrost.Messages.Info.File_Processor.Downlink_Update'
         
@@ -99,25 +111,28 @@ bifrost:
         api_token: '${SERVICE_INFLUX_TOKEN}'
         org: ${SERVICE_INFLUX_ORG}
         streams: Null
-        topics:
+        streams:
           write_telemetry:
-            - 'Telemetry.AOS.VCID.0.TaggedPacket.>'
+            - 'Telemetry.AOS.VCID.0.TaggedPacket.Decoded'
+        topics:
           write_command_metadata:
             - Uplink.CmdMetaData.Log
 
     - service:
         name: bifrost.services.uplink.packet_padder.Packet_Padder
         disabled: ${SERVICE_PACKET_PADDER_DISABLE}
-        topics:
+        streams:
           process:
-            - Uplink.CmdMetaData.Space_Packet
+            #- Uplink.CmdMetaData.Space_Packet
+            #- Uplink.CmdMetaData
 
     - service:
         name: bifrost.services.core.space_packet_service.Space_Packet_Service
         disabled: ${SERVICE_SPACE_PACKET_DISABLE}
-        topics:
+        streams:
           packetize_cmd_metadata:
             - Uplink.CmdMetaData
+        topics:
           packetize_raw:
             - Bifrost.Services.Space_Packet.Packetize            
           depacketize:
@@ -134,26 +149,26 @@ bifrost:
     - service:
         name: bifrost.services.uplink.tctf_service.TCTF_Service
         disabled: ${SERVICE_TCTF_DISABLE}
-        topics:
+        streams:
           process:
             #- Uplink.CmdMetaData.Padded
-            #- Uplink.CmdMetaData.Space_Packet
-            - Uplink.CmdMetaData.FSS_Command
+            # - Uplink.CmdMetaData.Space_Packet
             - Uplink.CmdMetaData
+
     - service:
         name: bifrost.services.sdls_services.sdls_encrypter_service.SDLS_Encrypter_Service
         disabled: ${SERVICE_SDLS_ENCRYPTER_DISABLE}
         report_time_s: ${SERVICE_SDLS_ENCRYPTER_REPORT_TIME_S}
-        topics:
+        streams:
           process:
             - Uplink.CmdMetaData.TCTF
 
     - service:
         name: bifrost.services.uplink.ccsds_randomizer_service.CCSDS_Randomizer_Service
         disabled: ${SERVICE_CCSDS_RANDOMIZER_DISABLE}
-        topics:
+        streams:
           randomize_sdls:
-            - Uplink.CmdMetaData.SDLS
+          #  - Uplink.CmdMetaData.SDLS
           # randomize_tctf:
           # - Uplink.CmdMetaData.TCTF
 
@@ -162,39 +177,37 @@ bifrost:
         disabled: ${SERVICE_CLTU_DISABLE}
         CLTU_start: '0x55555555555555555555EB90'
         CLTU_tail: '0xc5c5c5c5c5c5c579'
-        topics:
+        streams:
           process:
             #- Uplink.CmdMetaData.SDLS.Random
             #- Uplink.CmdMetaData.TCTF.Random
             #- Uplink.CmdMetaData.TCTF
             - Uplink.CmdMetaData.TCTF.BCH
 
-
     - service:
         name: bifrost.services.uplink.BCH_service.BCH_Service
         disabled: ${SERVICE_BCH_DISABLE}
-        topics:
+        streams:
           encode_cmd_metadata:
             - Uplink.CmdMetaData.TCTF
             #- Uplink.CmdMetaData.SDLS.Random
             #- Uplink.CmdMetaData.TCTF.Random
-          #encode:
-          #  - ''
 
     - service:
         name: bifrost.services.extra.synchronization_service.Synchronization_Service
-        disabled: ${SERVICE_SYNCHRONIZATION_DISABLE}
-        topics:
+        disabled: True #${SERVICE_SYNCHRONIZATION_DISABLE}
+        streams:
           process:
-            - create_CLTU
+            - Null
 
     - service:
         name: bifrost.services.networking.tcp_service.TCP_Manager
         disabled: ${SERVICE_TCP_DISABLE}
         report_time_s: ${SERVICE_TCP_REPORT_TIME_S}
-        topics:
+        streams:
           process:            
             - Uplink.CmdMetaData.CLTU
+        topics:
           directive_config:
             - Bifrost.Directive.TCP_Manager.Config
           directive_disconnect:
@@ -286,12 +299,14 @@ bifrost:
             - CL.Execute
           validate:
             - CL.Validate
+        streams:
           uplink_complete:
-            - Uplink.CmdMetaData.Complete           
+            - Uplink.CmdMetaData.Complete
 
     - service:
         name: bifrost.services.core.dictionary_services.Command_Dictionary_Service
         disabled: ${SERVICE_COMMAND_DICTIONARY_DISABLE}
+        opcode_size: 2
         topics:
           generate_command: 
             - 'Bifrost.Services.Dictionary.Command.Generate'
@@ -313,7 +328,7 @@ bifrost:
     - service:
         name: bifrost.services.testing.injector_service.Data_Injection_Service
         disabled: ${SERVICE_DATA_INJECTION_DISABLE}
-        topics:
+        streams:
           inject_binary_stream:
             - 'Bifrost.Directive.Data_Injection_Service.Inject_Binary_Stream'
 
@@ -326,13 +341,6 @@ bifrost:
         streams:
           archive:
             - 'Telemetry.AOS.Raw'
-
-    - service:
-        name: bifrost.services.extra.nasa_fss_service.NASA_FSS_Service
-        disabled: ${SERVICE_NASA_FSS_DISABLE}
-        topics:
-          directive_command:
-            - Bifrost.Directive.NASA_FSS_Service.Command
 
     - service:
         name: bifrost.services.downlink.evr_services.EVR_Service
