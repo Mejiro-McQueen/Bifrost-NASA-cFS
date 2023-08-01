@@ -1,0 +1,229 @@
+* Bifrost Deployment
+Bifrost can be quickly deployed by using the NASA cFS Bifrost Expansion and docker:
+https://github.com/Mejiro-McQueen/Bifrost-NASA-cFS
+
+This sets up bifrost, its dependencies, etc... for use with the NASA cFS FSS.
+
+* Host Dependencies
+** Filesystem
+If using the default artifact directory /gds:
+#+BEGIN_SRC sh
+sudo mkdir /gds
+sudo chown $USER:2001 /gds
+sudo chmod 775 /gds
+#+end_src
+The groupid 2001 is the hardcoded groupid for the user /bifrost/ in the docker containers.
+The docker containers are rootless and run as bifrost.
+
+** Dependencies
+- make
+- git
+- docker >= 23.0.6
+  1. docker is used to build, configure, and deploy:
+     - OpenMCT
+     - InfluxDB
+     - NATS
+     - NATS-CLI
+  2. Bifrost uses /make/ for convenience scripts.
+  3. git is used for version control and to manage the project specific adaptations.
+
+* Repositories
+|----------------------------------------------------+---------------------------------------------|
+| Repository                                         | Note                                        |
+|----------------------------------------------------+---------------------------------------------|
+| https://github.com/Mejiro-McQueen/Bifrost-NASA-cFS | Unstable NASA cFS Bifrost Expansion         |
+| https://github.com/Mejiro-McQueen/Bifrost          | Unstable Bifrost                            |
+|----------------------------------------------------+---------------------------------------------|
+| https://github.com/14LAB/Bifrost-NASA-cFS          | Stable NASA cFS Bifrost Expansion           |
+| https://github.com/14LAB/Bifrost                   | Stable Bifrost                              |
+|----------------------------------------------------+---------------------------------------------|
+| https://github.com/14LAB/ait                       | Hacked AIT dictionary and DSN capabilities. |
+|                                                    | Will remain frozen in order to motivate     |
+|                                                    | building something new.                     |
+|----------------------------------------------------+---------------------------------------------|
+
+** About stability
+The repos on Mejiro-McQueen are where I develop and experiment.
+The repos on 14LAB are synced with Mejiro-McQueen whenever I have new stable features and have had a chance to test against cFS.
+
+** About Project Adaptation Repostories
+- I intend for projects to fork and own the stable NASA cFS Bifrost Expansion.
+- This repostitory contains the minimum configuration to integrate with the NASA cFS.
+- It contains Bifrost as a submodule (projects should switch to subtree and cherry pick commits from the upstream).
+- The project will customize the templates and add additional mission specific services.
+- This repostiory is designed to be self contained, i.e. is readily deployable and contains all tools needed for demo and evalutation:
+  + Bifrost
+  + Project Adaptations
+  + Influx
+  + OpenMCT
+  + NATS
+  + NATS CLI
+
+* Configuration
+** Docker Layer
+The primary deployment method is through docker-compose. 
+The NASA cFS Expansion contains contains defaults that make it usable out of the box.
+Within the compose layer:
+
+*** Bifrost
+- Web Service Port
+- Flight Software Simulator host
+- Filesystem volume for storing GDS artifacts (downlinked files, service artifacts, telemetry dumps)
+- environment file (next layer of customization and configuration)
+- Additional environment variables can be set here to configure Bifrost options if it is convenient.
+
+*** NATS 
+The defaults for NATS have not been well explored, since the defaults have proven to be sufficient so far.
+- server name
+
+*** Influx
+Bifrost will automatically setup and configure Influx buckets for storing telemetry.
+- Root login
+- Admin Token
+- Organization
+- Filesystem volume for storing Influx database and artifacts
+
+*** NATS-CLI
+Used for debugging purposes, currently no configuration or customization is needed.
+
+*** OpenMCT
+Currently no configuration or customization is needed at this layer.
+
+** docker.env layer
+This file contains various environment variable values used to configure Bifrost and its services.
+Bifrost will substitute these variables when loading configuration template files (next customization layer)
+
+** config templates
+The /config/ directory contains various configuration files and AIT dictionaries.
+
+*** tlm.yaml
+This is an AIT telemetry dictionary.
+- Does not support templating.
+- Has support for variable array sizes.
+- See AIT documentation.
+
+*** cmd.yaml
+This is an AIT command dictionary.
+- Does not support templating.
+- Has support for variable array sizes.
+- See AIT documentation.
+- Configuration services does not known that this exists.
+
+*** config.tmpl.yaml
+Template for additional AIT settings (DSN interface, KMC)
+- See AIT documentation.
+- Configuration service does not know that this exists.
+
+*** alarms.yaml
+Alarm definitions. Telemetry is evaluated against alarm conditions, 
+and is assigned a color enum (default is green) and threshold flag. This metadata is transmitted through the
+rest of the system.
+- Does not support templating.
+- Documentation coming soon.
+
+*** services.tmpl.yaml
+This defines and configures Bifrost services and the NATS network.
+As the project progresses, they will not need to modify this file as often and
+can rely on the templating capability for configuring the system for a specific venue or purpose.
+- Supports templating
+- Pipe data through the network by setting the appropriate streams and topics.
+- Disable services.
+- Modify the downlink or uplink pipeline by modifying stream inputs and outputs.
+
+**** Configuration Service
+- Configuration service will automatically reconfigure services if their configuration changes.
+- Configuration service will publish a service's configuration details over NATS on startup.
+- Configuration service will publish a service's configuration details over NATS on request.
+- Enable or disable a service's features by removing topics and streams.
+- Set a local key/value store used to manage mission and pass specific data:
+  Bifrost services can request the value of a key at any time.
+  + Pass ID
+  + AWS configuration
+  + Space Vehicle name
+  + SCID
+  + Custom values
+
+**** Task Manager
+The configuration and extension of Task Manager is the most complex and will be expained in further detail elsewhere.
+This service executes a task template whenever conditions are met (i.e. decompress a file downlink and upload the contents to S3 if they are text files and match the regular expression filter, then enter their contents into Influx).
+
+**** 0158 Station Monitor  
+- Not shown in NASA cFS Expansion
+- Not sure if the dictionary is distributable.
+- Not supported in OpenMCT (dictionary incompatability, requires OpenMCT work)
+- Supported in InfluxDB
+
+**** TCP Service
+Projects will configure specialized blocks in order to interact with external hosts (e.g. FSS).
+
+
+* Web Services
+** NATS Network
+Other services can join this network in order to publish and receive streams/data from other services.
+(e.g. a service that subscribes to EVRs in order to display them onto a GUI, another to send emails and text messages)
+
+** InfluxDB
+http://localhost:8086
+View and plot telemetry, alarms, notebooks, backups, many other features.
+All telemetry is dumped into this database.
+
+** Gjallarhorn
+http://localhost:8000/
+Minimal working example of web UI 
+Connects to Bifrost through web service.
+Provides websockets to act as a gateway into the NATS network whenever a service can not use the NATS network.
+(e.g. OpenMCT requests dictionaries through a websocket: http://localhost:8000/dict/tlm)
+
+** OpenMCT
+http://localhost:8081
+Used for telemetry visualization.
+SunRISE has developed plugins to perform commanding, alarms, file uplink, etc... from here.
+This is the only GDS software that the MOS during operations.
+Requires additional work.
+
+** TCP Service
+Used to interact with external software or hardware that can not use websocket or NATS client.
+ - Receives TCP from other servers or clients (i.e. NASA cFS FSS) and publishes into a NATS stream or topic.
+ - Transmits NATS stream or topic data to other servers or clients (i.e. NASA cFS FSS)
+
+* Adaptations
+** Frame Processors
+Projects will need to copy and possibly modify a frame processor for each VCID.
+
+** Dictionaries
+Projects will need to define AIT telemetry and command dictionaries.
+
+** Post Processing
+Projects may need to create post processors to perform special handling of particular packets.
+
+* Design Notes
+** Gjallarhorn/Web Service 
+ This service is awful.
+ Rewritting in golang might make it more concise.
+
+** XTCE 
+ Providing an alternative to YAML dictionaries by using XTCE might have massive advantages:
+*** Standardization: 
++ Lectures can be recycled every semester
++ Tools and documentation for XTCE are implicitly multi mission
++ Investment and support leads to mass adoption, leading to transferable skills.
++ Standardization reduces the amount of wonky mission specific adaptations.
++ Improved performance (packet processing can be made a monolithic service)
+*** Configuration instead of code
++ You should be able to replace most of the uplink and downlink pipeline using XTCE
++ By using standard template constructs (STC), you should be able to define templates for say, CCSDS Packetization
+  When an STC definition is encountered when parsing the XTCE xml, dynamically load and configure a CCSDS Packet module.
+  This would replace most of the non post processing services.
+- Complex, difficult to implement, not a lot of good existing tooling, documentation isn't that great.
+
+Currently attempting to implement in LISP. 
+UI tools would build the spacesystem trees by chaining macros.
+The macros are loaded and evaluated by the monolithic service, which would create the required processors.
+An XML translation can be emitted by using a macro on the space system tree.
+An XML parser can emit a chain of macros similar to the UI would in order to create the space system expression.
+
+Homoiconicity eliminate the need to have different formats for saving application state.
+Might make it easier to modify and version control.
+
+** Notes
+Figure out where to put notes.
