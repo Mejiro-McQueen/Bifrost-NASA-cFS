@@ -10,17 +10,17 @@ Bifrost Configuration for the NASA cFS
 # Installation 
 
 ## Make artifacts directory
-``
+```bash
 	sudo mkdir /gds
 	sudo chown $USER:2001 /gds
 	sudo chmod 775 /gds
-``
+```
 
 ## Installation
-``
+```bash
 	git clone git@github.com:Mejiro-McQueen/Bifrost-NASA-cFS.git 
 	cd bifrost
 	make
-``
+```
 # Design notes, spec sheets, diagrams, snippets, etc
-See ./notes 
+See https://github.com/Mejiro-McQueen/Bifrost-NASA-cFS/blob/main/notes/README.org
